@@ -2,41 +2,30 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var server   = express();
-var port     = process.env.PORT || 3000;
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash    = require('connect-flash');
+const express  = require('express');
+const passport = require('passport');
+const winston = require('winston ');
+const db = require('./db');
 
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+const port     = process.env.PORT || 3000;
+const app   = express();
 
-var configDB = require('./config/database.js');
+require('./config/passport')(passport, db)
+require('./config/express')(app, passport, db.pool)
+require('./config/routes')(app, passport, db)
 
-// configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
-
-// require('./config/passport')(passport); // pass passport for configuration
-
-// set up our express application
-server.use(morgan('dev')); // log every request to the console
-server.use(cookieParser()); // read cookies (needed for auth)
-server.use(bodyParser()); // get information from html forms
-
-server.set('view engine', 'ejs'); // set up ejs for templating
-
-// required for passport
-server.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-server.use(passport.initialize());
-server.use(passport.session()); // persistent login sessions
-server.use(flash()); // use connect-flash for flash messages stored in session
-
-// routes ======================================================================
-require('.app/routes.js')(server, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-server.listen(port);
-console.log('The magic happens on port ' + port);
+const server = app.listen(port, () => {
+	if(app.get('env') === 'test') return
+
+	winston.log('Express app started on port ' + port)
+})
+
+server.on('close', () => {
+	winston.log('Closed express server')
+
+	db.pool.end(() => {
+		winston.log('Shut down connection pool')
+	})
+})
