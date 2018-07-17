@@ -4,7 +4,7 @@
 // get all the tools we need
 const express  = require('express');
 const passport = require('passport');
-const winston = require('winston ');
+const winston = require('winston');
 const db = require('./db');
 
 const port     = process.env.PORT || 3000;

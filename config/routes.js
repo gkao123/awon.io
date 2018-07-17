@@ -22,7 +22,7 @@ module.exports = (app, passport, db) => {
 		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
 	}), user.login)
 	//sign-up
-	app.get('api/signup', function(req, res) {
+	app.get('/api/signup', function(req, res) {
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
 	app.post('/api/local_login', passport.authenticate('local-login', { 

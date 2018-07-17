@@ -3,7 +3,6 @@
 const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
-const expressValidator = require('express-validator')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 const cookieParser = require('cookie-parser')
@@ -31,7 +30,7 @@ module.exports = (app, passport, pool) => {
 
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ extended: true }))
-	app.use(expressValidator())
+
 
 	app.use(methodOverride(function (req) {
 		if (req.body && typeof req.body === 'object' && '_method' in req.body) {
