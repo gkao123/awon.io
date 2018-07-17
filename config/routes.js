@@ -14,20 +14,21 @@ module.exports = (app, passport, db) => {
 	});
 	app.post('/api/local_login', passport.authenticate('local-login', { 
 		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	 }), user.login)
-	app.post('/api/fb_login', passport.authenticate('fb-login', { 
-		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	 }), user.login)
-	app.post('/api/google_login', passport.authenticate('google-login', { 
-		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	}), user.login)
+	 }), users.login)
+	// app.post('/api/fb_login', passport.authenticate('fb-login', { 
+	// 	successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	//  }), users.login)
+	// app.post('/api/google_login', passport.authenticate('google-login', { 
+	// 	successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	// }), users.login)
+
 	//sign-up
 	app.get('/api/signup', function(req, res) {
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
 	app.post('/api/local_login', passport.authenticate('local-login', { 
 		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	 }), user.login)
+	 }), users.login)
 
 
 

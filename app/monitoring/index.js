@@ -1,4 +1,4 @@
-const winston = require('')
+const winston = require('winston')
 
 module.exports = {
 	health: (db) => (req, res, next) => {
