@@ -7,8 +7,31 @@ const monitoring = require('../app/monitoring')
 module.exports = (app, passport, db) => {
     app.get('/', function(req, res){
         res.render('index.ejs');
-    });
-	app.post('/api/login', passport.authenticate('local'), users.login)
+	});
+	//login
+	app.get('api/login', function(req, res) {
+		res.render('login.ejs', { message: req.flash('loginMessage') });
+	});
+	app.post('/api/local_login', passport.authenticate('local-login', { 
+		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	 }), user.login)
+	app.post('/api/fb_login', passport.authenticate('fb-login', { 
+		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	 }), user.login)
+	app.post('/api/google_login', passport.authenticate('google-login', { 
+		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	}), user.login)
+	//sign-up
+	app.get('api/signup', function(req, res) {
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
+	});
+	app.post('/api/local_login', passport.authenticate('local-login', { 
+		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
+	 }), user.login)
+
+
+
+
 	app.get('/api/logout', users.logout)
 	app.get('/api/ping', requiresLogin, users.ping)
 
