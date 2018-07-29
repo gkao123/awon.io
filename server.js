@@ -18,14 +18,13 @@ require('./config/routes')(app, passport, db)
 // launch ======================================================================
 const server = app.listen(port, () => {
 	if(app.get('env') === 'test') return
-
-	winston.log('Express app started on port ' + port)
+	console.log("listeing on port " + port)
 })
 
 server.on('close', () => {
-	winston.log('Closed express server')
+	console.log('Closed express server')
 
 	db.pool.end(() => {
-		winston.log('Shut down connection pool')
+		console.log('Shut down connection pool')
 	})
 })
