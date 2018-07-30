@@ -2754,7 +2754,7 @@ input[type="button"].btn-block {
   .nav-link:hover, .nav-link:focus {
     text-decoration: none; }
   .nav-link.disabled {
-    color: #73818f; }
+    color: #ffffff; }
 
 .nav-tabs {
   border-bottom: 1px solid #c8ced3; }
@@ -4003,7 +4003,7 @@ button.close {
   .bs-popover-top .arrow::before, .bs-popover-auto[x-placement^="top"] .arrow::before {
     bottom: 0;
     border-top-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-top .arrow::after,
   .bs-popover-auto[x-placement^="top"] .arrow::after {
     bottom: 1px;
@@ -4023,7 +4023,7 @@ button.close {
   .bs-popover-right .arrow::before, .bs-popover-auto[x-placement^="right"] .arrow::before {
     left: 0;
     border-right-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-right .arrow::after,
   .bs-popover-auto[x-placement^="right"] .arrow::after {
     left: 1px;
@@ -4040,7 +4040,7 @@ button.close {
   .bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^="bottom"] .arrow::before {
     top: 0;
     border-bottom-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-bottom .arrow::after,
   .bs-popover-auto[x-placement^="bottom"] .arrow::after {
     top: 1px;
@@ -4069,7 +4069,7 @@ button.close {
   .bs-popover-left .arrow::before, .bs-popover-auto[x-placement^="left"] .arrow::before {
     right: 0;
     border-left-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-left .arrow::after,
   .bs-popover-auto[x-placement^="left"] .arrow::after {
     right: 1px;
@@ -7771,8 +7771,9 @@ canvas {
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #c8ced3; }
+  background-color: #0e47fb;
+  /* border-bottom: 1px solid #c8ced3;  */
+}
   .app-header .navbar-brand {
     display: inline-flex;
     align-items: center;
@@ -7806,7 +7807,12 @@ canvas {
       padding-top: 0;
       padding-bottom: 0;
       background: 0;
-      border: 0; }
+      border: 0;
+      margin-left: -25px;
+      margin-right: 25px;
+      font-family: "Quicksand";
+      font-weight: bold;
+    }
       .app-header .nav-item .nav-link .badge {
         position: absolute;
         top: 50%;
@@ -7823,9 +7829,11 @@ canvas {
     min-width: 180px; }
 
 .navbar-nav .nav-link {
-  color: #73818f; }
+  color: #ffffff; }
   .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
-    color: #2f353a; }
+    border-color: #ffffff;
+    text-shadow: 0 0 8px rgba(255,255,255, 0.6);
+  }
 
 .navbar-nav .open > .nav-link, .navbar-nav .open > .nav-link:hover, .navbar-nav .open > .nav-link:focus,
 .navbar-nav .active > .nav-link,
