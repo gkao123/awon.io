@@ -41,6 +41,23 @@ module.exports = (app, passport, db) => {
 
 	app.get('/health', monitoring.health(db))
 
+    app.get('/feedback', function(req, res){
+        res.render('index.ejs');
+	});
+
+	app.put('/feedback_redirect', function(req, res){
+		//create instance of model feedback
+		var feedback = new Feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
+		db.collection("feedback").insertOne(feedback, function(err, res){
+			if (err){
+				res.redirect('/feedback')
+			} else{
+				req.flash('success', 'Thank you for your feedback!')
+				res.redirect('/feedback')
+			}
+		}) 
+	});
+	
 	// app.use(function (err, req, res, next) {
 	// 	if (err.message && (~err.message.indexOf('not found'))) {
 	// 		return next()
