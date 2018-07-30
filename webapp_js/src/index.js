@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+//import { View, Text } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
