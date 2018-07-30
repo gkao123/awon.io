@@ -5,6 +5,11 @@ const users = require('../app/users')
 const monitoring = require('../app/monitoring')
 
 module.exports = (app, passport, db) => {
+	app.get('/test', function(req,res){
+		console.log('console_test');
+		res.send('test');
+		res.newfield('newfield');
+	});
     app.get('/', function(req, res){
         res.render('index.ejs');
 	});
@@ -15,12 +20,6 @@ module.exports = (app, passport, db) => {
 	app.post('/api/local_login', passport.authenticate('local-login', { 
 		successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
 	 }), users.login)
-	// app.post('/api/fb_login', passport.authenticate('fb-login', { 
-	// 	successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	//  }), users.login)
-	// app.post('/api/google_login', passport.authenticate('google-login', { 
-	// 	successRedirect: '/', failureRedirect: '/api/login', failureFlash: true
-	// }), users.login)
 
 	//sign-up
 	app.get('/api/signup', function(req, res) {
@@ -42,23 +41,20 @@ module.exports = (app, passport, db) => {
 
 	app.get('/health', monitoring.health(db))
 
-	app.use(function (err, req, res, next) {
-		if (err.message && (~err.message.indexOf('not found'))) {
-			return next()
-		}
+	// app.use(function (err, req, res, next) {
+	// 	if (err.message && (~err.message.indexOf('not found'))) {
+	// 		return next()
+	// 	}
+	// 	return res.status(500).json({error: 'Error on backend occurred.'})
+	// })
 
-		winston.error(err.stack)
+	// app.use(function (req, res) {
+	// 	const payload = {
+	// 		url: req.originalUrl,
+	// 		error: 'Not found'
+	// 	}
+	// 	if (req.accepts('json')) return res.status(404).json(payload)
 
-		return res.status(500).json({error: 'Error on backend occurred.'})
-	})
-
-	app.use(function (req, res) {
-		const payload = {
-			url: req.originalUrl,
-			error: 'Not found'
-		}
-		if (req.accepts('json')) return res.status(404).json(payload)
-
-		res.status(404).render('404', payload)
-	})
+	// 	res.status(404).render('404', payload)
+	// })
 }

@@ -8,5 +8,5 @@ module.exports = {
 		max: 50,
 		idleTimeoutMillis: 30000
 	},
-	session_secret: ''
+	session_secret: 'development'
 }

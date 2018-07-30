@@ -40,7 +40,7 @@ module.exports = (app, passport, pool) => {
 		}
 	}))
 
-	app.use(cookieParser())
+	app.use(cookieParser(env.session_secret))
 	app.use(session({
 		store: new pgSession({
 			pool
