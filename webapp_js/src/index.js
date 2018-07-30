@@ -16,8 +16,7 @@ class Awon extends React.Component {
   render(){
     return (
       <div>
-        <h3>awon THE APP COMING SOON!</h3>
-      <HelloUser handleChange = 'anthony'/>
+        <h3>THE APP COMING SOON!</h3>
       </div>
     )
   }
@@ -42,18 +41,19 @@ class HelloUser extends React.Component {
   render(){
     return (
       <div>
-        Hello {this.state.username} <br />
+      Hello {this.state.username} <br/>
       Change Name:
-      <input>
+      <input
         type = "text"
         value = {this.state.username}
         onChange = {this.handleChange}
-      </input>
+      />
       </div>
+      //HTML components are self-closing: https://github.com/yannickcr/eslint-plugin-react/issues/709
     )
   }
 }
 
-ReactDOM.render(<Awon />, document.getElementById('root'));
+ReactDOM.render(<HelloUser username = 'Anthony' />, document.getElementById('root'));
 
 registerServiceWorker();
