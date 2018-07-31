@@ -22,7 +22,7 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
-//import {AppHeader} from '../../scss/style.css';
+// import {AppHeader} from '../../scss/style.css';
 
 class DefaultLayout extends Component {
   render() {

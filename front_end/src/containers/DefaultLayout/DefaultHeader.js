@@ -7,6 +7,8 @@ import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 import awon from '../../assets/img/brand/awon_logo.svg'
 
+
+
 const propTypes = {
   children: PropTypes.node,
 };
@@ -31,11 +33,7 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" background-color = {{color: "#0e47fb"}} navbar>
           <NavItem className="px-3">
-            <NavLink
-              style = {{color: "#aaaaaa"}}
-              background-color = {{color: "#0e47fb"}}
-              href="/">marketplace
-            </NavLink>
+            <NavLink href="/">marketplace</NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink href="#/users">account</NavLink>
