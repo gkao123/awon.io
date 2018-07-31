@@ -11,6 +11,8 @@ const morgan = require('morgan')
 const winston = require('winston')
 const config = require('./')
 
+const router = require(__basedir+ '/app/router')
+
 const env = process.env.NODE_ENV || 'development'
 
 module.exports = (app, passport, pool) => {
@@ -22,7 +24,6 @@ module.exports = (app, passport, pool) => {
 			}
 		}
 	}
-
 	if (env !== 'test') app.use(morgan(log))
 
 	app.set('views', path.join(config.root, 'views'))
@@ -54,4 +55,5 @@ module.exports = (app, passport, pool) => {
 	app.use(passport.session())
 
 	app.use('/', express.static(path.join(config.root, 'public')))
+	app.use('/', router)
 }

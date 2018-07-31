@@ -21,6 +21,7 @@ mongoose.connect(db_URI, options, function(err){
 	if (err) return err;
 	console.log("mongo DB has connected")
 });
+
 //=============== possible code used in the future ===================
 // const dbConfig = {
 // 	user: config.db.user,
@@ -38,9 +39,15 @@ function createConnection(){
 		if (err) return err;
 		console.log('mongodb connection returned');
 	});
-  }
+}
+
+function close(){
+	mongoose.connection.close(() => {
+		console.log('Shutting down');
+	  });
+}
+
 
 module.exports = function(){
-	this.feedbackModel = require('./feedbackModel.js');
 	this.connection = createConnection();
 }

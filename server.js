@@ -11,9 +11,9 @@ const port     = process.env.PORT || 3000;
 const app   = express();
 
 require('./config/passport')(passport, db)
-require('./config/express')(app, passport, db.pool)
-require('./config/routes')(app, passport, db)
+require('./config/express')(app, passport)
 
+global.__basedir = __dirname;
 
 // launch ======================================================================
 const server = app.listen(port, () => {
@@ -22,9 +22,9 @@ const server = app.listen(port, () => {
 })
 
 server.on('close', () => {
+	console.log('Closing express server')
+	db.close(() => {
+		process.exit(0);
+	});
 	console.log('Closed express server')
-
-	db.pool.end(() => {
-		console.log('Shut down connection pool')
-	})
 })
