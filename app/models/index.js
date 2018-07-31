@@ -1,1 +1,0 @@
-exports.feedback = require('./feedbackModel.js')

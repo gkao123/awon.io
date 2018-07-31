@@ -1312,7 +1312,7 @@ select.form-control:focus::-ms-value {
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5; }
 
 .form-control-plaintext {
@@ -1333,12 +1333,12 @@ select.form-control:focus::-ms-value {
 .form-control-sm {
   height: calc(1.64844rem + 2px);
   padding: 0.25rem 0.5rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5;
   border-radius: 0.2rem; }
 
 .form-control-lg {
-  height: calc(2.64062rem + 2px);
+  height: calc(2.64063rem + 2px);
   padding: 0.5rem 1rem;
   font-size: 1.09375rem;
   line-height: 1.5;
@@ -1408,7 +1408,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(77, 189, 116, 0.9);
@@ -1490,7 +1490,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(248, 108, 107, 0.9);
@@ -2024,7 +2024,7 @@ fieldset:disabled a.btn {
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5;
   border-radius: 0.2rem; }
 
@@ -2224,7 +2224,7 @@ input[type="button"].btn-block {
   display: block;
   padding: 0 1.5rem;
   margin-bottom: 0;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   color: #73818f;
   white-space: nowrap; }
 
@@ -2425,7 +2425,7 @@ input[type="button"].btn-block {
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
-  height: calc(2.64062rem + 2px);
+  height: calc(2.64063rem + 2px);
   padding: 0.5rem 1rem;
   font-size: 1.09375rem;
   line-height: 1.5;
@@ -2438,7 +2438,7 @@ input[type="button"].btn-block {
 .input-group-sm > .input-group-append > .btn {
   height: calc(1.64844rem + 2px);
   padding: 0.25rem 0.5rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5;
   border-radius: 0.2rem; }
 
@@ -2583,7 +2583,7 @@ input[type="button"].btn-block {
   font-size: 75%; }
 
 .custom-select-lg {
-  height: calc(2.64062rem + 2px);
+  height: calc(2.64063rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   font-size: 125%; }
@@ -2754,7 +2754,7 @@ input[type="button"].btn-block {
   .nav-link:hover, .nav-link:focus {
     text-decoration: none; }
   .nav-link.disabled {
-    color: #ffffff; }
+    color: #73818f; }
 
 .nav-tabs {
   border-bottom: 1px solid #c8ced3; }
@@ -3340,7 +3340,7 @@ input[type="button"].btn-block {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   line-height: 1.5; }
 
 .pagination-sm .page-item:first-child .page-link {
@@ -3888,7 +3888,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -3973,7 +3973,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;
@@ -4003,7 +4003,7 @@ button.close {
   .bs-popover-top .arrow::before, .bs-popover-auto[x-placement^="top"] .arrow::before {
     bottom: 0;
     border-top-color: rgba(0, 0, 0, 0.25); }
-
+  
   .bs-popover-top .arrow::after,
   .bs-popover-auto[x-placement^="top"] .arrow::after {
     bottom: 1px;
@@ -4023,7 +4023,7 @@ button.close {
   .bs-popover-right .arrow::before, .bs-popover-auto[x-placement^="right"] .arrow::before {
     left: 0;
     border-right-color: rgba(0, 0, 0, 0.25); }
-
+  
   .bs-popover-right .arrow::after,
   .bs-popover-auto[x-placement^="right"] .arrow::after {
     left: 1px;
@@ -4040,7 +4040,7 @@ button.close {
   .bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^="bottom"] .arrow::before {
     top: 0;
     border-bottom-color: rgba(0, 0, 0, 0.25); }
-
+  
   .bs-popover-bottom .arrow::after,
   .bs-popover-auto[x-placement^="bottom"] .arrow::after {
     top: 1px;
@@ -4069,7 +4069,7 @@ button.close {
   .bs-popover-left .arrow::before, .bs-popover-auto[x-placement^="left"] .arrow::before {
     right: 0;
     border-left-color: rgba(0, 0, 0, 0.25); }
-
+  
   .bs-popover-left .arrow::after,
   .bs-popover-auto[x-placement^="left"] .arrow::after {
     right: 1px;
@@ -6629,9 +6629,9 @@ a.text-dark:hover, a.text-dark:focus {
   .btn-brand i + span {
     margin-left: 1.5rem; }
   .btn-brand.btn-lg i, .btn-group-lg > .btn-brand.btn i {
-    width: 2.64062rem;
+    width: 2.64063rem;
     margin: -0.5rem -1rem;
-    line-height: 2.64062rem;
+    line-height: 2.64063rem;
     border-radius: 0.3rem; }
   .btn-brand.btn-lg i + span, .btn-group-lg > .btn-brand.btn i + span {
     margin-left: 2rem; }
@@ -7683,12 +7683,12 @@ canvas {
   .chartjs-tooltip .tooltip-header {
     margin-bottom: 0.5rem; }
   .chartjs-tooltip .tooltip-header-item {
-    font-size: 0.76562rem;
+    font-size: 0.76563rem;
     font-weight: 700; }
   .chartjs-tooltip .tooltip-body-item {
     display: flex;
     align-items: center;
-    font-size: 0.76562rem;
+    font-size: 0.76563rem;
     white-space: nowrap; }
   .chartjs-tooltip .tooltip-body-item-color {
     display: inline-block;
@@ -7771,9 +7771,8 @@ canvas {
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #0e47fb;
-  /* border-bottom: 1px solid #c8ced3;  */
-}
+  background-color: #fff;
+  border-bottom: 1px solid #c8ced3; }
   .app-header .navbar-brand {
     display: inline-flex;
     align-items: center;
@@ -7807,12 +7806,7 @@ canvas {
       padding-top: 0;
       padding-bottom: 0;
       background: 0;
-      border: 0;
-      margin-left: -25px;
-      margin-right: 25px;
-      font-family: "Quicksand";
-      font-weight: bold;
-    }
+      border: 0; }
       .app-header .nav-item .nav-link .badge {
         position: absolute;
         top: 50%;
@@ -7829,11 +7823,9 @@ canvas {
     min-width: 180px; }
 
 .navbar-nav .nav-link {
-  color: #ffffff; }
+  color: #73818f; }
   .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
-    border-color: #ffffff;
-    text-shadow: 0 0 8px rgba(255,255,255, 0.6);
-  }
+    color: #2f353a; }
 
 .navbar-nav .open > .nav-link, .navbar-nav .open > .nav-link:hover, .navbar-nav .open > .nav-link:focus,
 .navbar-nav .active > .nav-link,
@@ -8031,7 +8023,7 @@ canvas {
   font-size: 1.09375rem; }
 
 .progress-group-text {
-  font-size: 0.76562rem;
+  font-size: 0.76563rem;
   color: #73818f; }
 
 .progress-group-header {
