@@ -2754,7 +2754,7 @@ input[type="button"].btn-block {
   .nav-link:hover, .nav-link:focus {
     text-decoration: none; }
   .nav-link.disabled {
-    color: #ffffff; }
+    color: #73818f; }
 
 .nav-tabs {
   border-bottom: 1px solid #c8ced3; }
@@ -7771,9 +7771,8 @@ canvas {
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #0e47fb;
-  /* border-bottom: 1px solid #c8ced3;  */
-}
+  background-color: #fff;
+  border-bottom: 1px solid #c8ced3; }
   .app-header .navbar-brand {
     display: inline-flex;
     align-items: center;
@@ -7807,12 +7806,7 @@ canvas {
       padding-top: 0;
       padding-bottom: 0;
       background: 0;
-      border: 0;
-      margin-left: -25px;
-      margin-right: 25px;
-      font-family: "Quicksand";
-      font-weight: bold;
-    }
+      border: 0; }
       .app-header .nav-item .nav-link .badge {
         position: absolute;
         top: 50%;
@@ -7829,11 +7823,9 @@ canvas {
     min-width: 180px; }
 
 .navbar-nav .nav-link {
-  color: #ffffff; }
+  color: #73818f; }
   .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
-    border-color: #ffffff;
-    text-shadow: 0 0 8px rgba(255,255,255, 0.6);
-  }
+    color: #2f353a; }
 
 .navbar-nav .open > .nav-link, .navbar-nav .open > .nav-link:hover, .navbar-nav .open > .nav-link:focus,
 .navbar-nav .active > .nav-link,
