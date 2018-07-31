@@ -2,7 +2,7 @@
 const LocalStrategy    = require('passport-local').Strategy;
 // const FacebookStrategy = require('passport-facebook').Strategy;
 // const GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
-const uuidv1 = require('uuid/v1'); 
+//const v1 = require('uuid/v1'); 
 
 module.exports = (passport,db) => {
     passport.serializeUser((user, done) => {
@@ -43,7 +43,8 @@ module.exports = (passport,db) => {
     }));
     passport.use('local-signup', new LocalStrategy((username, password, done) => {
         hashPW = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        var uniqueID = uuidv1()
+        //var uniqueID = v1()
+        var uniqueID = 1;
         db.query('INSERT INTO USERS VALUES {id, username, password} FROM users WHERE id=$1 AND username=$2 AND password=$3',
             [uniqueID, username, hashPW], (err, result) => {
             if(err) {

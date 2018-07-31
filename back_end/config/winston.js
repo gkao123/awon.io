@@ -4,7 +4,7 @@ const path = require('path');
 var options = {
   file: {
     level: 'info',
-    filename: path.join(__basedir, 'logs/app.log'),
+    filename: path.join(global.__basedir, 'logs/app.log'),
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB

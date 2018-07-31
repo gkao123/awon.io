@@ -3,11 +3,12 @@ var router = express.Router()
 
 const winston = require('winston')
 const { requiresLogin, requiresAdmin } = require(__basedir + '/config/middlewares/authorization')
-const admin = require('./admin')
-const users = require('./users')
-const monitoring = require('./monitoring')
+const admin = require(__basedir + '/app/admin')
+const users = require(__basedir + '/app/users')
+const monitoring = require(__basedir + '/app/monitoring')
 const db = require(__basedir + '/db')
-const models = require('./models')
+const models = require(__basedir + '/app/models')
+const passport = require('passport')
 
 router.get('/test', function(req,res){
 	console.log('console_test');
