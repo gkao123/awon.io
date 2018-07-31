@@ -3,15 +3,13 @@
 const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
 const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
 const winston = require('winston')
 const config = require('./')
 
-const router = require(__basedir+ '/app/router')
+const router = require(__basedir + '/app/router')
 
 const env = process.env.NODE_ENV || 'development'
 
@@ -42,14 +40,6 @@ module.exports = (app, passport, pool) => {
 	}))
 
 	app.use(cookieParser(env.session_secret))
-	app.use(session({
-		store: new pgSession({
-			pool
-		}),
-		secret: config.session_secret,
-		resave: false,
-		cookie: { maxAge: 14 * 24 * 60 * 60 * 1000 }
-	}))
 
 	app.use(passport.initialize())
 	app.use(passport.session())

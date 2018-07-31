@@ -5,7 +5,7 @@ const db_URI = 'mongodb://admin:tbd_admin9081@ds135364.mlab.com:35364/tbd'
 
 
 const options = {
-	useMongoClient: true,
+	useNewUrlParser: true,
 	autoIndex: false, // Don't build indexes
 	reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
 	reconnectInterval: 500, // Reconnect every 500ms
@@ -14,7 +14,8 @@ const options = {
 	bufferMaxEntries: 0,
 	connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
 	socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-	family: 4 // Use IPv4, skip trying IPv6
+	family: 4 // Use IPv4, skip trying IPv6,
+	
 };
 
 mongoose.connect(db_URI, options, function(err){
