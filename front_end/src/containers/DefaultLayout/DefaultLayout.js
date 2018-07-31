@@ -22,12 +22,14 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
+//import {AppHeader} from '../../scss/style.css';
+
 class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
-          <DefaultHeader />
+        <AppHeader background-color = {{color: "#0e47fb"}} fixed>
+          <DefaultHeader background-color = {{color: "#0e47fb"}}/>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
