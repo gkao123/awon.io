@@ -7,7 +7,7 @@ const admin = require('./admin')
 const users = require('./users')
 const monitoring = require('./monitoring')
 const db = require(__basedir + '/db')
-const model = require('./models')
+const models = require('./models')
 
 router.get('/test', function(req,res){
 	console.log('console_test');
@@ -49,12 +49,14 @@ router.get('/feedback', function(req, res){
 
 router.put('/feedback_redirect', function(req, res){
 	//create instance of model feedback
-	// var feedback = new Feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
+	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
 	db_connection = db.connection;
-	db_connection.collection("feedback").insertOne(feedback, function(err, res){
+	db_connection.collection("Feedback").insertOne(feedback, function(err, res){
 		if (err){
+			console.log('feedback not sent')
 			res.redirect('/feedback')
 		} else{
+			console.log('feedback successful sent')
 			req.flash('success', 'Thank you for your feedback!')
 			res.redirect('/feedback')
 		}

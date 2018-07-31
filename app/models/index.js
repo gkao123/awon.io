@@ -1,1 +1,1 @@
-exports.feedbackModel = require('./feedbackModel.js')
+exports.feedback = require('./feedbackModel.js')

@@ -22,6 +22,22 @@ mongoose.connect(db_URI, options, function(err){
 	console.log("mongo DB has connected")
 });
 
+mongoose.connection.on('error',function (err) {  
+	console.log('Mongoose default connection error: ' + err);
+}); 
+  
+mongoose.connection.on('disconnected', function () {  
+	console.log('Mongoose default connection disconnected'); 
+  });
+
+process.on('SIGINT', function() {
+	mongoose.connection.close(function(){
+		console.log('Mongoose default connection disconnected through app termination');
+		process.exit(0);
+	})
+}); 
+  
+
 //=============== possible code used in the future ===================
 // const dbConfig = {
 // 	user: config.db.user,
@@ -39,12 +55,6 @@ function createConnection(){
 		if (err) return err;
 		console.log('mongodb connection returned');
 	});
-}
-
-function close(){
-	mongoose.connection.close(() => {
-		console.log('Shutting down');
-	  });
 }
 
 

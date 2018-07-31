@@ -22,9 +22,5 @@ const server = app.listen(port, () => {
 })
 
 server.on('close', () => {
-	console.log('Closing express server')
-	db.close(() => {
-		process.exit(0);
-	});
 	console.log('Closed express server')
 })
