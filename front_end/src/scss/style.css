@@ -18302,18 +18302,17 @@ canvas {
   padding-top: 0;
   padding-bottom: 0;
   background: 0;
-  border: 0;
+  margin-left: -20px;
+  margin-right: 20px;
   color: #ffffff;
-  font-family: "Quicksand", "bold";
-  border-left: -20;
-  border-right: 20; }
+  font-family: "Quicksand", "bold"; }
 
 .app-header .nav-item .nav-link .badge {
   position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -16px;
-  margin-left: 0; }
+  margin-left: 0px; }
 
 .app-header .nav-item .nav-link > .img-avatar, .app-header .nav-item .avatar.nav-link > img, .app-header .nav-item .avatar.nav-link > img {
   height: 35px;
