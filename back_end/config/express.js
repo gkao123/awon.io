@@ -13,7 +13,7 @@ const router = require(__basedir + '/app/router')
 
 const env = process.env.NODE_ENV || 'development'
 
-module.exports = (app, passport, pool) => {
+module.exports = (app, passport, db) => {
 	let log = 'dev'
 	if (env !== 'development') {
 		log = {
@@ -26,10 +26,6 @@ module.exports = (app, passport, pool) => {
 
 	app.set('views', path.join(config.root, 'views'))
 	app.set('view engine', 'ejs')
-
-	app.use(bodyParser.json())
-	app.use(bodyParser.urlencoded({ extended: true }))
-
 
 	app.use(methodOverride(function (req) {
 		if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -46,4 +42,6 @@ module.exports = (app, passport, pool) => {
 
 	app.use('/', express.static(path.join(config.root, 'public')))
 	app.use('/', router)
+	app.use(bodyParser.json())
+	app.use(bodyParser.urlencoded({ extended: true }))
 }

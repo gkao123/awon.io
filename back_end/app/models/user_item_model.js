@@ -10,4 +10,4 @@ var userPostSchema = new Schema({
     isFulfilled: Boolean,
 })
 
-module.exports = mongoose.model('User_Post', userPostSchema);
+module.exports = mongoose.model('user_item', userPostSchema);

@@ -52,6 +52,7 @@ process.on('SIGINT', function() {
 
 
 function createConnection(){
+	console.log('create connection returned')
 	return mongoose.createConnection(db_URI, function(err){
 		if (err) return err;
 		console.log('mongodb connection returned');
@@ -59,6 +60,4 @@ function createConnection(){
 }
 
 
-module.exports = function(){
-	this.connection = createConnection();
-}
+module.exports.createConnection = createConnection()

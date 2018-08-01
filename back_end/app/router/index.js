@@ -7,8 +7,10 @@ const admin = require(__basedir + '/app/admin')
 const users = require(__basedir + '/app/users')
 const monitoring = require(__basedir + '/app/monitoring')
 const db = require(__basedir + '/db')
-const models = require(__basedir + '/app/models')
+const Model = require(__basedir + '/app/models')
 const passport = require('passport')
+
+console.log('db loaded')
 
 router.get('/test', function(req,res){
 	console.log('console_test');
@@ -48,18 +50,42 @@ router.get('/feedback', function(req, res){
 	res.render('index.ejs');
 });
 
-router.put('/feedback_redirect', function(req, res){
-	//create instance of model feedback
-	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
+router.get('/api/create_user_item', function(req, res){
+	var userItem = new Model.user_item({
+		userID: String,
+		title: req.body.item_title,
+		location: req.body.item_location,
+		time: new Date(),
+		body: req.body.item_body,
+		isFulfilled: false,
+	})
 	db_connection = db.connection;
+	db_connection.collection("User_Item").insertOne(feedback, function(err, res){
+		if (err){
+			console.log('item not sent')
+			res.status(503).send({ error : err})
+		} else{
+			console.log('feedback successful sent')
+		}
+	})
+	db_connection.close();
+})
+
+router.put('/api/feedback_redirect', function(req, res, next){
+	//create instance of model feedback
+	console.log('contact info', req.body.contactInfo)
+	console.log('feedback body', req.body.feedback)
+	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
+	db_connection = db.createConnection;
+
 	db_connection.collection("Feedback").insertOne(feedback, function(err, res){
 		if (err){
 			console.log('feedback not sent')
-			res.redirect('/feedback')
+			return res.status(503).send({ error : err})
 		} else{
+			next()
 			console.log('feedback successful sent')
-			req.flash('success', 'Thank you for your feedback!')
-			res.redirect('/feedback')
+			return res.status(200)
 		}
 	})
 	db_connection.close();

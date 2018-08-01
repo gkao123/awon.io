@@ -6,4 +6,4 @@ var feedbackSchema = new Schema({
     feedback: String
 })
 
-module.exports = mongoose.model('Feedback', feedbackSchema);
+module.exports = mongoose.model('feedback', feedbackSchema);

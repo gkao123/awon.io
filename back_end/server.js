@@ -13,7 +13,7 @@ const port     = process.env.PORT || 3000;
 const app   = express();
 
 require('./config/passport')(passport, db)
-require('./config/express')(app, passport)
+require('./config/express')(app, passport, db)
 
 
 // launch ======================================================================

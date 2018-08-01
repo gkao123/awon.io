@@ -1,2 +1,2 @@
-exports.feedback = require('./feedback_Model.js')
-exports.user_post =require('./userpost_Model.js')
+exports.feedback = require('./feedback_model.js')
+exports.user_item =require('./user_item_model.js')
