@@ -44,7 +44,17 @@ router.get('/admin/panel', requiresAdmin, admin.renderPanel)
 router.get('/health', monitoring.health(db))
 
 router.get('/api/user_item_records/size=:num', function(req, res){
-	
+	db_connection = db.connection;
+	db.collection.find().sort({ $natural: -1 }).limit(req.params['size']).lean().exec(function(err, docs){
+		if (err){
+			console.log('item not sent')
+			res.status(503).send({ error : err})
+		} else{
+			doc
+			res.end(JSON.stringify(docs))
+		}
+	})
+	db_connection.close();
 })
 
 router.post('/api/create_user_item', function(req, res){
