@@ -1,5 +1,9 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const bodyParser = require('body-parser')
+const router = express.Router()
+
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: true }))
 
 const winston = require('winston')
 const { requiresLogin, requiresAdmin } = require(__basedir + '/config/middlewares/authorization')
@@ -12,16 +16,9 @@ const passport = require('passport')
 
 console.log('db loaded')
 
-router.get('/test', function(req,res){
-	console.log('console_test');
-	res.send('test');
-	res.newfield('newfield');
-});
-router.get('/', function(req, res){
-	res.render('index.ejs');
-});
+
 //login
-router.get('api/login', function(req, res) {
+router.get('/api/login', function(req, res) {
 	res.render('login.ejs', { message: req.flash('loginMessage') });
 });
 router.post('/api/local_login', passport.authenticate('local-login', { 
@@ -46,11 +43,11 @@ router.get('/admin/panel', requiresAdmin, admin.renderPanel)
 
 router.get('/health', monitoring.health(db))
 
-router.get('/feedback', function(req, res){
-	res.render('index.ejs');
-});
+router.get('/api/user_item_records/size=:num', function(req, res){
+	
+})
 
-router.get('/api/create_user_item', function(req, res){
+router.post('/api/create_user_item', function(req, res){
 	var userItem = new Model.user_item({
 		userID: String,
 		title: req.body.item_title,
@@ -60,32 +57,28 @@ router.get('/api/create_user_item', function(req, res){
 		isFulfilled: false,
 	})
 	db_connection = db.connection;
-	db_connection.collection("User_Item").insertOne(feedback, function(err, res){
+	db_connection.collection("User_Item").insertOne(userItem, function(err){
 		if (err){
 			console.log('item not sent')
 			res.status(503).send({ error : err})
 		} else{
-			console.log('feedback successful sent')
+			res.status(202)
 		}
 	})
 	db_connection.close();
 })
 
-router.put('/api/feedback_redirect', function(req, res, next){
-	//create instance of model feedback
-	console.log('contact info', req.body.contactInfo)
-	console.log('feedback body', req.body.feedback)
+router.post('/api/feedback_redirect', function(req, res, next){
+	console.log('feedback', req.body.feedback)
 	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
 	db_connection = db.createConnection;
-
-	db_connection.collection("Feedback").insertOne(feedback, function(err, res){
+	db_connection.collection("Feedback").insertOne(feedback, function(err){
 		if (err){
 			console.log('feedback not sent')
-			return res.status(503).send({ error : err})
+			res.status(503).send({ error : err})
 		} else{
-			next()
 			console.log('feedback successful sent')
-			return res.status(200)
+			res.status(200)
 		}
 	})
 	db_connection.close();

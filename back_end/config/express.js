@@ -1,7 +1,6 @@
 // config/express.js
 
 const path = require('path')
-const bodyParser = require('body-parser')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
@@ -42,6 +41,4 @@ module.exports = (app, passport, db) => {
 
 	app.use('/', express.static(path.join(config.root, 'public')))
 	app.use('/', router)
-	app.use(bodyParser.json())
-	app.use(bodyParser.urlencoded({ extended: true }))
 }
