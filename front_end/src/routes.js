@@ -182,7 +182,7 @@ const User = Loadable({
   loading: Loading,
 });
 const Feedback = Loadable({
-  loader: () => import('./views/Icons/Flags'),
+  loader: () => import('./views/Feedback/Feedback'),
   loading: Loading,
 });
 
@@ -223,7 +223,7 @@ const routes = [
   { path: '/icons/flags', name: 'Flags', component: Flags },
   { path: '/icons/font-awesome', name: 'Font Awesome', component: FontAwesome },
   { path: '/icons/simple-line-icons', name: 'Simple Line Icons', component: SimpleLineIcons },
-  { path: '/feedback', name: 'Feedback', component: Colors },
+  { path: '/feedback', name: 'Feedback', component: Feedback },
   { path: '/notifications', exact: true, name: 'Notifications', component: Alerts },
   { path: '/notifications/alerts', name: 'Alerts', component: Alerts },
   { path: '/notifications/badges', name: 'Badges', component: Badges },
