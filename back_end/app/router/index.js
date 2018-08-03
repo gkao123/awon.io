@@ -64,6 +64,7 @@ router.post('/api/create_user_item', function(req, res){
 		location: req.body.item_location,
 		time: new Date(),
 		body: req.body.item_body,
+		contactInfo = req.body.contactInfo,
 		isFulfilled: false,
 	})
 	db_connection = db.connection;
@@ -76,24 +77,24 @@ router.post('/api/create_user_item', function(req, res){
 		}
 	})
 	db_connection.close();
+	res.end();
 })
 
-router.put('/api/feedback_redirect', function(req, res, next){
+router.post('/api/feedback_redirect', function(req, res){
 	console.log('feedback', req.body.feedback)
 	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
 	db_connection = db.createConnection;
 	db_connection.collection("Feedback").insertOne(feedback, function(err){
 		if (err){
 			console.log('feedback not sent')
-			db_connection.close();
-			return res.status(503).send({ error : err})
+			res.status(503).send({ error : err})
 		} else{
-			console.log('feedback successful sent')	
+			console.log('feedback successful sent')
+			res.status(200)
 		}
 	})
-	console.log('hit?')
 	db_connection.close();
-	return res.status(200)
+	res.end();
 });
 
 // app.use(function (err, req, res, next) {
