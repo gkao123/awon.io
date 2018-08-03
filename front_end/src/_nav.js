@@ -256,6 +256,11 @@ export default {
       ],
     },
     {
+      name: 'Feedback',
+      url: '/feedback',
+      icon: 'icon-star',
+    },
+    {
       name: 'Download CoreUI',
       url: 'http://coreui.io/react/',
       icon: 'icon-cloud-download',
