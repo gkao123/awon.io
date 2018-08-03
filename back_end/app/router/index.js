@@ -78,20 +78,22 @@ router.post('/api/create_user_item', function(req, res){
 	db_connection.close();
 })
 
-router.post('/api/feedback_redirect', function(req, res, next){
+router.put('/api/feedback_redirect', function(req, res, next){
 	console.log('feedback', req.body.feedback)
 	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
 	db_connection = db.createConnection;
 	db_connection.collection("Feedback").insertOne(feedback, function(err){
 		if (err){
 			console.log('feedback not sent')
-			res.status(503).send({ error : err})
+			db_connection.close();
+			return res.status(503).send({ error : err})
 		} else{
-			console.log('feedback successful sent')
-			res.status(200)
+			console.log('feedback successful sent')	
 		}
 	})
+	console.log('hit?')
 	db_connection.close();
+	return res.status(200)
 });
 
 // app.use(function (err, req, res, next) {
