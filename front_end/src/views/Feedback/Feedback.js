@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import classNames from 'classnames';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { rgbToHex } from '@coreui/coreui/dist/js/coreui-utilities'
-
-
-
 
 class Feedback extends Component {
   constructor(props){
@@ -28,7 +22,6 @@ class Feedback extends Component {
   handleSubmit(event){
     event.preventDefault();
     this.setState({ type: 'info', message: 'Sending...' }, this.submitFeedback);
-    // alert('Thank you for your feedback! As we continue to improve and scale our platform, we highly value the voice of each and every one of our users. -Geoffrey')
   }
   submitFeedback(){
     var component = this;
@@ -43,7 +36,7 @@ class Feedback extends Component {
         feedback: this.state.feedback
       })
     }).then(function loaded(){
-      component.setState({ type: 'success', message: 'Thank you for your feedback! As we continue to improve and scale our platform, we highly value the voice of each and every one of our users. -Geoffrey', contactInfo: '', feedback: ''});
+      component.setState({ type: 'success', message: 'Thank you for your feedback! As we continue to improve and scale our platform, we highly value the voice of each and every one of our users. -Geoffrey & Anthony', contactInfo: '', feedback: ''});
     })
   }
   render() {
@@ -67,7 +60,7 @@ class Feedback extends Component {
               </FormGroup>
               <FormGroup>
                 <Label for="exampleText">Feedback</Label>
-                <Input type="textarea" value={this.state.feedback} onChange = {e => this.handleFeedbackChange(e)} placeholder = "Awon.IO is awesome !!!!!!" />
+                <Input type="textarea" value={this.state.feedback} onChange = {e => this.handleFeedbackChange(e)} placeholder = "Awon.IO is awesome !!!!!!" style={{height: '150px'}}/>
               </FormGroup>
               <Button>Submit</Button>
             </Form>
