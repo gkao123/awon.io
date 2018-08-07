@@ -19,6 +19,7 @@ import {
   Progress,
   Row,
   Table,
+  NavLink,
 } from 'reactstrap';
 import Widget03 from '../../views/Widgets/Widget03'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
@@ -482,7 +483,7 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="6" lg="6">
-            <Card className="text-white bg-info" style={{backgroundColor: "#ffffff"}}>
+            <Card className="text-white bg-info" >
               <CardBody className="pb-0" >
                 {/* <ButtonGroup className="float-right">
                   <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
@@ -497,12 +498,17 @@ class Dashboard extends Component {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup> */}
-                <div className="sell_value">$1,000</div>
-                <div className="item_description">Need Macbook Pro 15" 2017/2016</div>
+                <div className="sell_value">$1000</div>
+                <div className="item_description">Need Macbook Pro 15 2017/2016</div>
                 <div className="location_description">Foster Mods, Brandeis University</div>
                 <div className="location_description">17 Jun 2018</div>
+                <div className="invisible">""</div>
               </CardBody>
-              <div className = "invisible"> "" </div>
+              {/* <CardBody>
+                <Row className = "align-items-center">
+                  <Button block color="primary">Accept</Button>
+                </Row>
+              </CardBody> */}
               {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Line data={cardChartData2} options={cardChartOpts2} height={70} />
               </div> */}

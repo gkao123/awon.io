@@ -12834,6 +12834,8 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem; }
 
 .nav-link:hover, .nav-link:focus {
+  font-family: Raleway;
+  color: #000000;
   text-decoration: none; }
 
 .nav-link.disabled {
@@ -20472,6 +20474,9 @@ body {
   font-weight: 700;
   font-family: Raleway;
   color: #00aa0e; }
+
+.sell_value:hover {
+  color: #00c410; }
 
 .item_description {
   font-size: 1rem;
