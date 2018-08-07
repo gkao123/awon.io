@@ -11,12 +11,9 @@ class Feedback extends Component {
   constructor(props){
     super(props);
     this.feedback_URL = 'test';
+    this.messageState = '';
   }
-  getInitialState: function(){
-    return {
-      message: ''
-    }
-  }
+
   handleSubmit(event){
     fetch(this.feedback_URL,{
       method: 'POST',
