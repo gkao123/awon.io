@@ -4325,7 +4325,7 @@ button.bg-success:focus {
   background-color: #3a9d5d !important; }
 
 .bg-info {
-  background-color: #63c2de !important; }
+  background-color: #ffffff !important; }
 
 a.bg-info:hover, a.bg-info:focus,
 button.bg-info:hover,
@@ -5269,6 +5269,8 @@ button.bg-dark:focus {
 
 .pb-0,
 .py-0 {
+  //color: #ffffff;
+  //background-color: #ffffff;
   padding-bottom: 0 !important; }
 
 .pl-0,
@@ -7557,11 +7559,11 @@ button {
     .card.bg-success .card-header {
       background-color: #44b76c;
       border-color: #379457; }
-  .card.bg-info {
-    border-color: #2eadd3; }
+  .card.bg-info { //modified
+    border-color: #ffffff; }
     .card.bg-info .card-header {
-      background-color: #56bddb;
-      border-color: #2eadd3; }
+      background-color: #ffffff;
+      border-color: #ffffff; }
   .card.bg-warning {
     border-color: #c69500; }
     .card.bg-warning .card-header {
@@ -9835,6 +9837,27 @@ body {
 
 .font-5xl {
   font-size: 2.5rem !important; }
+
+.sell_value{
+  font-size: 1.3125rem;
+  font-weight: 700;
+  font-family: Raleway;
+  color: #00aa0e;
+}
+
+.item_description{
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: Raleway;
+  color: #404040;
+}
+
+.location_description{
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-family: Raleway;
+    color: #b4b4b4;
+}
 
 .text-value {
   font-size: 1.3125rem;
