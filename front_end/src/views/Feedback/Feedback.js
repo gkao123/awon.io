@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { Row, Col } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { rgbToHex } from '@coreui/coreui/dist/js/coreui-utilities'
+
+
 
 
 class Feedback extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <div className="card">
-          <div className="card-header">
+      <div className="card">
+      <div className="card-header">
             <i className="icon-drop"></i> Feedback
           </div>
-        </div>
+      <Form>
+        <FormGroup>
+          <Label for="exampleEmail">Contact Info (optional)</Label>
+          <Input type="email" name="email" id="exampleEmail" placeholder="no_spam_plz@emailgenerator.com" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleText">Feedback</Label>
+          <Input type="textarea" name="text" id="exampleText" />
+        </FormGroup>
+        <Button>Submit</Button>
+      </Form>
+      </div>
       </div>
     );
   }
