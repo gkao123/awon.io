@@ -7566,6 +7566,8 @@ button {
     .card.bg-info .card-header {
       background-color: #ffffff;
       border-color: #ffffff; }
+    .card.bg-info:hover{
+      border-color: #b4b4b4; }
   .card.bg-warning {
     border-color: #c69500; }
     .card.bg-warning .card-header {
