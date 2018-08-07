@@ -482,7 +482,7 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
               <CardBody className="pb-0">
                 <a href="" style={{color:"#ffffff"}}>
@@ -496,7 +496,21 @@ class Dashboard extends Component {
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="6" lg="12">
+            <Card className="text-white bg-info" >
+              <CardBody className="pb-0">
+                <a href="" style={{color:"#ffffff"}}>
+                <div className="sell_value">$119</div>
+                <div className="item_description">Help me move my stuff out of my room!</div>
+                <div className="location_description">Charles River Apartments, Brandeis University</div>
+                <div className="location_description">28 July 2018</div>
+                <div className="invisible">""</div>
+                </a>
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 {/* <ButtonGroup className="float-right">
@@ -527,7 +541,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 {/* <ButtonGroup className="float-right">
@@ -558,7 +572,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 {/* <ButtonGroup className="float-right">
@@ -593,7 +607,7 @@ class Dashboard extends Component {
         </Row>
 
 
-        <Row>
+        {/* <Row>
           <Col>
             <Card>
               <CardBody>
@@ -648,10 +662,11 @@ class Dashboard extends Component {
               </CardFooter>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
+        {/* Icons for twitter, fb, etc. */}
 
-        <Row>
+        {/* <Row>
           <Col xs="6" sm="6" lg="3">
             <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })} >
               <div className="chart-wrapper">
@@ -722,9 +737,11 @@ class Dashboard extends Component {
               </div>
             </div>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row>
+        {/* Table of users */}
+
+        {/* <Row>
           <Col>
             <Card>
               <CardHeader>
@@ -1164,7 +1181,7 @@ class Dashboard extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </div>
     );
   }
