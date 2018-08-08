@@ -56,11 +56,11 @@ class Feedback extends Component {
             <Form onSubmit = {e => this.handleSubmit(e)}>
               <FormGroup>
                 <Label for="exampleEmail">Contact Info (optional)</Label>
-                <Input type="text" value= {this.state.contactInfo} onChange = {e => this.handleContactInfoChange(e)} placeholder="we_promise@no_spam.com" />
+                <Input type="text" value= {this.state.contactInfo} onChange = {e => this.handleContactInfoChange(e)} placeholder="Email" />
               </FormGroup>
               <FormGroup>
                 <Label for="exampleText">Feedback</Label>
-                <Input type="textarea" value={this.state.feedback} onChange = {e => this.handleFeedbackChange(e)} placeholder = "Awon.IO is awesome !!!!!!" style={{height: '150px'}}/>
+                <Input type="textarea" value={this.state.feedback} onChange = {e => this.handleFeedbackChange(e)} placeholder = "Feedback" style={{height: '150px'}}/>
               </FormGroup>
               <Button>Submit</Button>
             </Form>
