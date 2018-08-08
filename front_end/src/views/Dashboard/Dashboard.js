@@ -482,43 +482,38 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
-              <CardBody className="pb-0" >
-                {/* <ButtonGroup className="float-right">
-                  <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
-                    <DropdownToggle caret className="p-0" color="transparent">
-                      <i className="icon-settings"></i>
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem disabled>Disabled action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </ButtonGroup> */}
+              <CardBody className="pb-0">
+                <a href="" style={{color:"#ffffff"}}>
                 <div className="sell_value">$1000</div>
                 <div className="item_description">Need Macbook Pro 15 2017/2016</div>
                 <div className="location_description">Foster Mods, Brandeis University</div>
                 <div className="location_description">17 Jun 2018</div>
                 <div className="invisible">""</div>
+                </a>
               </CardBody>
-              {/* <CardBody>
-                <Row className = "align-items-center">
-                  <Button block color="primary">Accept</Button>
-                </Row>
-              </CardBody> */}
-              {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData2} options={cardChartOpts2} height={70} />
-              </div> */}
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
-            <Card className="text-white bg-primary">
+          <Col xs="12" sm="6" lg="12">
+            <Card className="text-white bg-info" >
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
+                <a href="" style={{color:"#ffffff"}}>
+                <div className="sell_value">$119</div>
+                <div className="item_description">Help me move my stuff out of my room!</div>
+                <div className="location_description">Charles River Apartments, Brandeis University</div>
+                <div className="location_description">28 July 2018</div>
+                <div className="invisible">""</div>
+                </a>
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col xs="12" sm="6" lg="12">
+            <Card className="text-white bg-info">
+              <CardBody className="pb-0">
+                {/* <ButtonGroup className="float-right">
                   <Dropdown id='card2' isOpen={this.state.card2} toggle={() => { this.setState({ card2: !this.state.card2 }); }}>
                     <DropdownToggle className="p-0" color="transparent">
                       <i className="icon-location-pin"></i>
@@ -531,18 +526,25 @@ class Dashboard extends Component {
                   </Dropdown>
                 </ButtonGroup>
                 <div className="text-value">9.823</div>
-                <div>Members online</div>
+                <div>Members online</div> */}
+                <a href="" style={{color:"#ffffff"}}>
+                <div className="sell_value">$560</div>
+                <div className="item_description">Subletter for one month (July) at 244 Cresecent Street</div>
+                <div className="location_description">244 Crescent Street, Waltham MA</div>
+                <div className="location_description">13 May 2018</div>
+                <div className="invisible">""</div>
+              </a>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+              {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Line data={cardChartData1} options={cardChartOpts1} height={70} />
-              </div>
+              </div> */}
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
-            <Card className="text-white bg-warning">
+          <Col xs="12" sm="6" lg="12">
+            <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
+                {/* <ButtonGroup className="float-right">
                   <Dropdown id='card3' isOpen={this.state.card3} toggle={() => { this.setState({ card3: !this.state.card3 }); }}>
                     <DropdownToggle caret className="p-0" color="transparent">
                       <i className="icon-settings"></i>
@@ -555,18 +557,25 @@ class Dashboard extends Component {
                   </Dropdown>
                 </ButtonGroup>
                 <div className="text-value">9.823</div>
-                <div>Members online</div>
+                <div>Members online</div> */}
+                <a href="" style={{color:"#ffffff"}}>
+                <div className="sell_value">$110</div>
+                <div className="item_description">Looking to buy Introduction to Alogrithms 3rd Edition</div>
+                <div className="location_description">Usen Hall, Brandeis University</div>
+                <div className="location_description">5 May 2018</div>
+                <div className="invisible">""</div>
+              </a>
               </CardBody>
-              <div className="chart-wrapper" style={{ height: '70px' }}>
+              {/* <div className="chart-wrapper" style={{ height: '70px' }}>
                 <Line data={cardChartData3} options={cardChartOpts3} height={70} />
-              </div>
+              </div> */}
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="6">
-            <Card className="text-white bg-danger">
+          <Col xs="12" sm="6" lg="12">
+            <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
+                {/* <ButtonGroup className="float-right">
                   <ButtonDropdown id='card4' isOpen={this.state.card4} toggle={() => { this.setState({ card4: !this.state.card4 }); }}>
                     <DropdownToggle caret className="p-0" color="transparent">
                       <i className="icon-settings"></i>
@@ -579,15 +588,26 @@ class Dashboard extends Component {
                   </ButtonDropdown>
                 </ButtonGroup>
                 <div className="text-value">9.823</div>
-                <div>Members online</div>
+                <div>Members online</div> */}
+
+                <a href="" style={{color:"#ffffff"}}>
+                <div className="sell_value">$16</div>
+                <div className="item_description">3 Chobani yogurts (strawberry) from Hannafords</div>
+                <div className="location_description">Hassenfield Hall, Brandeis University</div>
+                <div className="location_description">10 July 2018</div>
+                <div className="invisible">""</div>
+              </a>
+
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+              {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
-              </div>
+              </div> */}
             </Card>
           </Col>
         </Row>
-        <Row>
+
+
+        {/* <Row>
           <Col>
             <Card>
               <CardBody>
@@ -642,9 +662,11 @@ class Dashboard extends Component {
               </CardFooter>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row>
+        {/* Icons for twitter, fb, etc. */}
+
+        {/* <Row>
           <Col xs="6" sm="6" lg="3">
             <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })} >
               <div className="chart-wrapper">
@@ -715,9 +737,11 @@ class Dashboard extends Component {
               </div>
             </div>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row>
+        {/* Table of users */}
+
+        {/* <Row>
           <Col>
             <Card>
               <CardHeader>
@@ -1157,7 +1181,7 @@ class Dashboard extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </div>
     );
   }
