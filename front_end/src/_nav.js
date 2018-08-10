@@ -261,6 +261,11 @@ export default {
       icon: 'icon-star',
     },
     {
+      name: 'Test',
+      url: '/test',
+      icon: 'icon-star',
+    },
+    {
       name: 'Download CoreUI',
       url: 'http://coreui.io/react/',
       icon: 'icon-cloud-download',
