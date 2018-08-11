@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Modal, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import PropTypes from 'prop-types';
+import isNil from 'lodash/fp/isNil';
 
 class Create extends Component {
   constructor(props){
@@ -9,20 +11,40 @@ class Create extends Component {
      
     }
   }
-  handleContactInfoChange(event){
-    this.setState({contactInfo: event.target.value});
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleKeyUp, false);
+    document.addEventListener('click', this.handleOutsideClick, false);
   }
-  handleFeedbackChange(event){
-    this.setState({feedback: event.target.value});
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.handleKeyUp, false);
+    document.removeEventListener('click', this.handleOutsideClick, false);
   }
-  handleSubmit(event){
-    event.preventDefault();
-    this.setState({ type: 'info', message: 'Sending...' }, this.submitFeedback);
+  handleKeyUp(e) {
+    const { onCloseRequest } = this.props;
+    const keys = {
+      27: () => {
+        e.preventDefault();
+        onCloseRequest();
+        window.removeEventListener('keyup', this.handleKeyUp, false);
+      },
+    };
+
+    if (keys[e.keyCode]) { keys[e.keyCode](); }
+  }
+  handleOutsideClick(e) {
+    const { onCloseRequest } = this.props;
+
+    if (!isNil(this.modal)) {
+      if (!this.modal.contains(e.target)) {
+        onCloseRequest();
+        document.removeEventListener('click', this.handleOutsideClick, false);
+      }
+    }
   }
 
   render() {
     return (
-<Modal
+    <Modal
         {...this.props}
         bsSize="small"
         aria-labelledby="contained-modal-title-sm"
@@ -57,4 +79,8 @@ class Create extends Component {
     );
   }
 }
+Create.propTypes = {
+  onCloseRequest: PropTypes.func,
+};
+
 export default Create;
