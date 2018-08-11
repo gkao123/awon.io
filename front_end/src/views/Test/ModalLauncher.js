@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'reactstrap';
+import { Button} from 'reactstrap';
 import PropTypes from 'prop-types';
 import CreateModal from './Create/Create.js';
 
@@ -19,8 +19,7 @@ class ModalLauncher extends Component {
   
   render() {
     const { showModal } = this.state;
-
-    if (this.buttonLabel == "Create"){
+    if (this.props.buttonLabel === "Create"){
         var button = <CreateModal onCloseRequest={() => this.handleToggleModal()} />;
     }
     return (

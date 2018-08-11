@@ -1,54 +1,18 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import PropTypes from 'prop-types';
-import isNil from 'lodash/fp/isNil';
+import { Modal, Form, FormGroup, Label, Input} from 'reactstrap';
+// import PropTypes from 'prop-types';
+// import isNil from 'lodash/fp/isNil';
 
 class Create extends Component {
   constructor(props){
     super(props);
-    this.feedback_URL = 'test';
     this.state = {
-     
+
     }
   }
-  componentDidMount() {
-    window.addEventListener('keyup', this.handleKeyUp, false);
-    document.addEventListener('click', this.handleOutsideClick, false);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.handleKeyUp, false);
-    document.removeEventListener('click', this.handleOutsideClick, false);
-  }
-  handleKeyUp(e) {
-    const { onCloseRequest } = this.props;
-    const keys = {
-      27: () => {
-        e.preventDefault();
-        onCloseRequest();
-        window.removeEventListener('keyup', this.handleKeyUp, false);
-      },
-    };
-
-    if (keys[e.keyCode]) { keys[e.keyCode](); }
-  }
-  handleOutsideClick(e) {
-    const { onCloseRequest } = this.props;
-
-    if (!isNil(this.modal)) {
-      if (!this.modal.contains(e.target)) {
-        onCloseRequest();
-        document.removeEventListener('click', this.handleOutsideClick, false);
-      }
-    }
-  }
-
   render() {
     return (
-    <Modal
-        {...this.props}
-        bsSize="small"
-        aria-labelledby="contained-modal-title-sm"
-      >
+    <Modal bsSize="small" aria-labelledby="contained-modal-title-sm" >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-sm">Modal heading</Modal.Title>
         </Modal.Header>
@@ -72,15 +36,9 @@ class Create extends Component {
             </FormGroup>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.props.onHide}>Submit</Button>
-        </Modal.Footer>
       </Modal>
     );
   }
 }
-Create.propTypes = {
-  onCloseRequest: PropTypes.func,
-};
 
 export default Create;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'reactstrap';
 import ModalLauncher from './ModalLauncher.js'
 
 class Test extends Component {
@@ -18,8 +17,7 @@ class Test extends Component {
 
     return (
       <div className="animated fadeIn">
-      <ModalLauncher buttonLabel="Create">
-      </ModalLauncher>
+      <ModalLauncher buttonLabel={"Create"}/>
       </div>
     );
   }
