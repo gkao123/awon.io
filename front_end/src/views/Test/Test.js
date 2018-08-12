@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ModalLauncher from './ModalLauncher.js'
+import ModalComponent from './ModalComponent.js'
 
 class Test extends Component {
   constructor(props){
@@ -17,7 +17,7 @@ class Test extends Component {
 
     return (
       <div className="animated fadeIn">
-      <ModalLauncher buttonLabel={"Create"}/>
+      <ModalComponent/>
       </div>
     );
   }

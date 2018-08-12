@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button} from 'reactstrap';
 import PropTypes from 'prop-types';
-import CreateModal from './Create/Create.js';
+import Create from './Create/Create.js';
 
 
 
@@ -18,18 +18,25 @@ class ModalLauncher extends Component {
   }
   
   render() {
+    const { buttonLabel} = this.props;
     const { showModal } = this.state;
-    if (this.props.buttonLabel === "Create"){
-        var button = <CreateModal onCloseRequest={() => this.handleToggleModal()} />;
-    }
+    // const modalType = {
+    //     create: CreateModal
+    // }
+    // const Modal = modalType[this.props.buttonLabel]
+    // // if (this.props.buttonLabel === "Create"){
+    // //     const {button} = <CreateModal onCloseRequest={() => this.handleToggleModal()} />;
+    // // }
+
     return (
         <div>
-          <Button color= "primary" size = "sm" onClick={() => this.handleToggleModal()}> Launch modal </Button>
-          {showModal && button}
+          <Button color= "primary" size = "sm" onClick={() => this.handleToggleModal()}> {buttonLabel}  </Button>
+          <Create/>
         </div>
     );
   }
 }
+
 
 ModalLauncher.propTypes = {
     buttonLabel: PropTypes.string.isRequired,

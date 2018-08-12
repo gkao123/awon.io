@@ -37,8 +37,7 @@ export default class ModalComponent extends React.Component {
   render() {
     return (
 
-        <div>
-          <h1>React Bootstrap Modal Example</h1>
+        <div> 
         <Button color="success" onClick={this.toggle}>React Modal</Button>
         <Modal isOpen={this.state.modal}>
         <form onSubmit={this.handleSubmit}>
