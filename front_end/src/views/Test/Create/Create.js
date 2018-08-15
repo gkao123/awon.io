@@ -1,76 +1,54 @@
-//ModalComponent.js
-import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React, { Component } from '../../../../../../../../.cache/typescript/2.9/node_modules/@types/react';
+import { Modal, Form, FormGroup, Label, Input} from '../../../../../../../../.cache/typescript/2.9/node_modules/@types/reactstrap';
+// import PropTypes from 'prop-types';
+// import isNil from 'lodash/fp/isNil';
 
-export default class ModalComponent extends React.Component {
-  constructor(props) {
+class Create extends Component {
+  constructor(props){
     super(props);
-    this.state = { modal: false,name: '',team :'' ,country: ''};
-
-    this.toggle = this.toggle.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeTeam = this.handleChangeTeam.bind(this);
-    this.handleChangeCountry = this.handleChangeCountry.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.feedback_URL = 'test';
+    this.state = {
+      title: 'info',
+      location: '',
+      description: '',
+      contactInfo: ''
+    }
   }
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+  handleContactInfoChange(event){
+    this.setState({contactInfo: event.target.value});
   }
-  handleChangeName(event) {
-    this.setState({name: event.target.value});
+  handleFeedbackChange(event){
+    this.setState({feedback: event.target.value});
   }
-  handleChangeTeam(event) {
-    this.setState({team: event.target.value});
-  }
-  handleChangeCountry(event) {
-    this.setState({country: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-     }
-
-
   render() {
     return (
-
-        <div>
-          <h1>React Bootstrap Modal Example</h1>
-        <Button color="success" onClick={this.toggle}>React Modal</Button>
-        <Modal isOpen={this.state.modal}>
-        <form onSubmit={this.handleSubmit}>
-          <ModalHeader>IPL 2018</ModalHeader>
-          <ModalBody>
-          <div className="row">
-            <div className="form-group col-md-4">
-            <label>Name:</label>
-            <input type="text" value={this.state.name} onChange={this.handleChangeName} className="form-control" />
-              </div>
-              </div>
-            <div className="row">
-             <div className="form-group col-md-4">
-            <label>Team:</label>
-                <input type="text" value={this.state.team} onChange={this.handleChangeTeam} className="form-control" />
-               </div>
-              </div>
-            <div className="row">
-             <div className="form-group col-md-4">
-              <label>Country:</label>
-                <input type="text" value={this.country} onChange={this.handleChangeCountry} className="form-control" />
-               </div>
-              </div>
-          </ModalBody>
-          <ModalFooter>
-            <input type="submit" value="Submit" color="primary" className="btn btn-primary" />
-            <Button color="danger" onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
-          </form>
-        </Modal>
-        </div>
-      
+    <Modal bsSize="small" aria-labelledby="contained-modal-title-sm" >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-sm">Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <FormGroup>
+                <Label for="title">Title</Label>
+                <Input type="text" value= {this.state.title} onChange = {e => this.handleTitleChange(e)} placeholder="title" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleText">Location</Label>
+              <Input type="text" value={this.state.location} onChange = {e => this.handleLocationChange(e)} placeholder = "Gosman Athletic Center" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleText">Description</Label>
+              <Input type="textarea" value={this.state.description} onChange = {e => this.handleDescriptionChange(e)} placeholder = "List any additional details you think would be helpful for any fulfillers." style={{height: '150px'}}/>
+            </FormGroup>
+            <FormGroup>
+              <Label for="contactInfo">Contact Info (optional)</Label>
+              <Input type="text" value= {this.state.contactInfo} onChange = {e => this.handleContactInfoChange(e)} placeholder="Email/phone number/facebook profile/etc." />
+            </FormGroup>
+          </Form>
+        </Modal.Body>
+      </Modal>
     );
   }
 }
+
+export default Create;
