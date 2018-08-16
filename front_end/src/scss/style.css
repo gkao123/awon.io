@@ -12915,6 +12915,7 @@ input[type="button"].btn-block {
   padding-bottom: 0.33594rem;
   margin-right: 1rem;
   font-size: 1.09375rem;
+  background-color: #ed680a;
   line-height: inherit;
   white-space: nowrap; }
 
@@ -18259,22 +18260,22 @@ canvas {
   padding: 0 30px; }
 
 .app-header {
-  position: relative;
+  position: center;
   flex-direction: row;
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #0e47fb; }
+  background-color: #1f2e55; }
 
 .app-header .navbar-brand {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 155px;
   height: 55px;
   padding: 0;
   margin-right: 0;
-  background-color: transparent; }
+  background-color: #ff0000;
+  outline: #ff0000; }
 
 .app-header .navbar-brand .navbar-brand-minimized {
   display: none; }
@@ -18355,6 +18356,7 @@ canvas {
 
 @media (min-width: 992px) {
   .brand-minimized .app-header .navbar-brand {
+    position: center;
     width: 50px;
     background-color: transparent; }
   .brand-minimized .app-header .navbar-brand .navbar-brand-full {
@@ -19969,9 +19971,9 @@ html[dir="rtl"] .aside-menu-show .aside-menu {
   .app-header .navbar-toggler {
     color: #fff; }
   .app-header .navbar-brand {
-    position: absolute;
+    position: center;
     left: 50%;
-    margin-left: -77.5px; }
+    margin-left: 77.5px; }
   .app-body {
     margin-top: 55px; }
   .sidebar {
@@ -20570,7 +20572,7 @@ html body .app.flex-row.align-items-center {
   border-bottom: 0px solid #c8ced3; }
 
 .app-header .navbar-brand {
-  display: inline-flex;
+  display: center;
   align-items: center;
   justify-content: center;
   width: 155px;

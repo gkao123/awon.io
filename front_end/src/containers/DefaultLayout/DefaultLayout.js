@@ -31,7 +31,7 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
+        <AppHeader>
           <DefaultHeader/>
         </AppHeader>
         <div className="app-body">
