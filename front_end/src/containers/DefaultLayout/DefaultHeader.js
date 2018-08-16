@@ -30,7 +30,7 @@ class DefaultHeader extends Component {
           background-color = {{color: "#0e47fb"}}
         />
         {/* <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
-
+{/*         
         <Nav className="d-md-down-none" background-color = {{color: "#0e47fb"}} navbar>
           <NavItem className="px-3">
             <NavLink href="/">marketplace</NavLink>
@@ -41,7 +41,7 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <NavLink href="#">about</NavLink>
           </NavItem>
-        </Nav>
+        </Nav>  */}
         {/* <Nav className="ml-auto" navbar> */}
           {/* <NavItem className="d-md-down-none">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>

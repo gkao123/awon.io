@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
+
 import {
   AppAside,
-  AppBreadcrumb,
+  // AppBreadcrumb,
   AppFooter,
   AppHeader,
   AppSidebar,
   AppSidebarFooter,
   AppSidebarForm,
-  AppSidebarHeader,
+  // AppSidebarHeader,
   AppSidebarMinimizer,
   AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
 import navigation from '../../_nav';
+import BreadcrumbComponent from './components/BreadcrumbComponent'
+import SidebarHeader from './components/SidebarHeader';
 // routes config
 import routes from '../../routes';
 import DefaultAside from './DefaultAside';
@@ -33,14 +36,14 @@ class DefaultLayout extends Component {
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
+            <SidebarHeader />
             <AppSidebarForm />
             <AppSidebarNav navConfig={navigation} {...this.props} />
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes}/>
+            <BreadcrumbComponent appRoutes={routes}/>
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {

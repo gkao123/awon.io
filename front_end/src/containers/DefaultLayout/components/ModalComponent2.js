@@ -1,8 +1,9 @@
 //ModalComponent.js
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal, ModalBody, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
-export default class ModalComponent extends React.Component {
+
+export default class ModalComponent2 extends React.Component {
   constructor(props) {
     super(props);
     this.api_URL = 'test';
@@ -71,7 +72,7 @@ export default class ModalComponent extends React.Component {
     }
     return (
         <div>
-          <button class = "btn" onClick={this.toggle}><i className="fa fa-plus-square fa-2x mt-4"></i></button>
+          <button class = "btn" onClick={this.toggle}><i className="fa fa-plus fa-lg mt-4"></i></button>
           <Modal isOpen={this.state.modal}>
             <ModalBody>
             <Form onSubmit = {e => this.handleSubmit(e)}>
