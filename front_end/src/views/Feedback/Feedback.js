@@ -50,7 +50,7 @@ class Feedback extends Component {
       <div className="animated fadeIn">
         <div className="card">
           <div className="card-header">
-              <i className="icon-star"></i> Feedback
+              <i className="icon-like"></i> Feedback
           </div>
           <div class="card-body">
             <Form onSubmit = {e => this.handleSubmit(e)}>

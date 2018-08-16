@@ -181,6 +181,10 @@ const User = Loadable({
   loader: () => import('./views/Users/User'),
   loading: Loading,
 });
+const New_Request = Loadable({
+  loader: () => import('./views/New_Request/New_Request'),
+  loading: Loading,
+});
 const Feedback = Loadable({
   loader: () => import('./views/Feedback/Feedback'),
   loading: Loading,
@@ -228,6 +232,7 @@ const routes = [
   { path: '/icons/flags', name: 'Flags', component: Flags },
   { path: '/icons/font-awesome', name: 'Font Awesome', component: FontAwesome },
   { path: '/icons/simple-line-icons', name: 'Simple Line Icons', component: SimpleLineIcons },
+  { path: '/new_request', name: 'New Request', component: New_Request },
   { path: '/feedback', name: 'Feedback', component: Feedback },
   { path: '/test', name: 'Test', component: Test },
   { path: '/notifications', exact: true, name: 'Notifications', component: Alerts },
