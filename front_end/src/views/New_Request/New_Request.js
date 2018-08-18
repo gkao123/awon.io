@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 export default class New_Request extends React.Component {
   constructor(props) {
     super(props);
-    this.api_URL = 'test';
+    this.api_URL = 'http://localhost:3000/api/create_user_item';
     this.state = { 
       modal: false, 
       type: 'info',
@@ -46,11 +46,12 @@ export default class New_Request extends React.Component {
       body: JSON.stringify({
         title: this.state.title,
         location: this.state.location,
-        description: this.state.description,
+        body: this.state.description,
         contactInfo: this.state.contactInfo
       })
     }).then(function loaded(){
-      
+      component.setState({ type: 'success', message: 'Thank you for creating a new item', 
+      title: '', location: '', description: '', contactInfo: ''});
     })
   }
     //  <button onClick={this.toggle}><i class="fas fa-plus-circle"></i></button>
@@ -88,10 +89,9 @@ export default class New_Request extends React.Component {
             </FormGroup>
             <div class="btn-toolbar" role="group" aria-label="Basic example">
               <div class="btn-group mr-2" role="group" aria-label="First group"> <Button>Submit</Button> </div>
-              <div class="btn-group mr-2" role="group" aria-label="First group"> <Button onClick={this.toggle}> Close </Button> </div>
-            {status}
             </div>
           </Form>
+          {status}
             </div>
             </div>
         </div>

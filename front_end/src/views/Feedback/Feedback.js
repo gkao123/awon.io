@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 class Feedback extends Component {
   constructor(props){
     super(props);
-    this.feedback_URL = 'test';
+    this.feedback_URL = 'http://localhost:3000/api/feedback_redirect';
     this.state = {
       type: 'info',
       message: '',

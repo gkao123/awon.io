@@ -457,7 +457,7 @@ class Dashboard extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
-    this.api_URL;
+    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5';
 
     this.state = {
       dropdownOpen: false,

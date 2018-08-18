@@ -224,10 +224,6 @@ export default {
       name: 'Home',
       url: '/dashboard',
       icon: 'icon-home',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
     },
     {
       name: 'New Request',
