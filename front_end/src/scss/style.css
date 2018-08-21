@@ -12899,7 +12899,7 @@ input[type="button"].btn-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0.5rem 1rem; }
 
 .navbar > .container,
@@ -12907,13 +12907,13 @@ input[type="button"].btn-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; }
+  justify-content: flex-start; }
 
 .navbar-brand {
   display: inline-block;
   padding-top: 0.33594rem;
   padding-bottom: 0.33594rem;
-  margin-right: 1rem;
+  margin-left: -1rem;
   font-size: 1.09375rem;
   background-color: #ed680a;
   line-height: inherit;
@@ -18265,9 +18265,10 @@ canvas {
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #1f2e55; }
+  background-color: #ff0000; }
 
 .app-header .navbar-brand {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 155px;
@@ -19972,10 +19973,9 @@ html[dir="rtl"] .aside-menu-show .aside-menu {
     color: #fff; }
   .app-header .navbar-brand {
     position: center;
-    left: 50%;
-    margin-left: 77.5px; }
+    justify-content: center; }
   .app-body {
-    margin-top: 55px; }
+    margin-top: 0px; }
   .sidebar {
     position: fixed;
     z-index: 1019;
@@ -20563,15 +20563,16 @@ html body .app.flex-row.align-items-center {
   height: 100vh; }
 
 .app-header {
-  position: fixed;
+  position: relative;
   flex-direction: row;
+  display: center;
   height: 55px;
   padding: 0;
   margin: 0;
   background-color: #1f2e55; }
 
 .app-header .navbar-brand {
-  display: center;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 155px;
