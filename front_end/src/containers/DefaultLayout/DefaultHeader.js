@@ -25,12 +25,12 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: awon, width: 89, height: 25, alt: 'CoreUI Logo', position: 'center' }}
+          full={{ src: awon, width: 89, height: 25, alt: 'CoreUI Logo', backgroundColor: '#ff0000' }}
           // minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
           //background-color = {{color: "#0e47fb"}}
         />
         {/* <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
-{/*         
+{/*
         <Nav className="d-md-down-none" background-color = {{color: "#0e47fb"}} navbar>
           <NavItem className="px-3">
             <NavLink href="/">marketplace</NavLink>
@@ -79,6 +79,7 @@ class DefaultHeader extends Component {
     );
   }
 }
+
 
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;

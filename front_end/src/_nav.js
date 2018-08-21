@@ -1,6 +1,6 @@
 export default {
   items: [
-    
+
     // {
     //   title: true,
     //   name: 'Theme',
@@ -216,10 +216,10 @@ export default {
     // {
     //   divider: true,
     // },
-    {
-      title: true,
-      name: 'Welcome!',
-    },
+    // {
+    //   title: true,
+    //   name: 'Welcome!',
+    // },
     {
       name: 'Home',
       url: '/dashboard',
@@ -230,7 +230,7 @@ export default {
       url: '/new_request',
       icon: 'icon-pencil',
     },
-    
+
     {
       name: 'Feedback',
       url: '/feedback',
