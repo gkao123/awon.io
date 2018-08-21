@@ -61,6 +61,7 @@ router.post('/api/create_user_item', function(req, res){
 		userID: '1',
 		title: req.body.title,
 		location: req.body.location,
+		price: req.body.price,
 		time: new Date(),
 		body: req.body.body,
 		contactInfo : req.body.contactInfo,
@@ -74,6 +75,7 @@ router.post('/api/create_user_item', function(req, res){
 		} else{
 			console.log('title ', req.body.title)
 			console.log('location ', req.body.location)
+			console.log('price ', req.body.price)
 			console.log('body ', req.body.body)
 			console.log('contactInfo ', req.body.contactInfo)
 			console.log('item created')

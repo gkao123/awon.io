@@ -468,13 +468,20 @@ class Dashboard extends Component {
     };
   }
   componentDidMount() {
-    fetch(this.api_URL)
-      .then(res => res.json())
+    fetch(this.api_URL,{
+      method: 'get',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {return res.json();})
       .then(
-        (result) => {
+        (res) => {
           this.setState({
             isLoaded: true,
-            userItems: result.items
+            userItems: res
           });
         },
         // Note: it's important to handle errors here
@@ -506,7 +513,7 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
         <ul>
-          {userItems.map(item => (
+          {this.state.userItems.map(item => (
             <li key={item.name}>
             <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
