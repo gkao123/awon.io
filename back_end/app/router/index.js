@@ -47,15 +47,12 @@ router.get('/api/user_item_records/size=:num', function(req, res){
 	console.log('getting records')
 	console.log('size ', req.params['num'])
 	db_connection = db.createConnection;
-	db_connection.collection("User_Item").find().sort({ $natural: -1 }).limit(5).lean().exec(function(err, docs){
-		if (err){
-			console.log('item not sent')
-			res.status(503).send({ error : err})
-		} else{
-			res.end(JSON.stringify(docs))
-		}
+	db_connection.collection("User_Item").find({}).toArray(function(err, docs){
+		if (err) console.log(err)
+		console.log(docs); // it will print your collection data
+		res.send(JSON.stringify(docs));
 	})
-	db_connection.close();
+	return;
 })
 
 router.post('/api/create_user_item', function(req, res){
@@ -80,18 +77,20 @@ router.post('/api/create_user_item', function(req, res){
 			console.log('body ', req.body.body)
 			console.log('contactInfo ', req.body.contactInfo)
 			console.log('item created')
-			res.status(200)
+			res.status(200);
+			res.end();
 		}
 	})
-	db_connection.close();
-	res.end();
+	return;
 })
 
 router.post('/api/feedback_redirect', function(req, res){
 	console.log('feedback', req.body.feedback)
 	var feedback = new Model.feedback({ contactInfo: req.body.contactInfo, feedback: req.body.feedback}); 
 	db_connection = db.createConnection;
+	console.log('db connection created')
 	db_connection.collection("Feedback").insertOne(feedback, function(err){
+		console.log('in the mlab api')
 		if (err){
 			console.log('feedback not sent')
 			res.status(503).send({ error : err})
@@ -100,10 +99,11 @@ router.post('/api/feedback_redirect', function(req, res){
 			console.log('feedback ', req.body.feedback)
 			console.log('feedback successful sent')
 			res.status(200)
+			res.end();
 		}
 	})
-	db_connection.close();
-	res.end();
+	return;
+
 });
 
 // app.use(function (err, req, res, next) {
