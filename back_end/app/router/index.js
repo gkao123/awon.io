@@ -13,6 +13,8 @@ const monitoring = require(__basedir + '/app/monitoring')
 const db = require(__basedir + '/db')
 const Model = require(__basedir + '/app/models')
 const passport = require('passport')
+const moment = require('moment')
+const uuidv1 = require('uuid/v1');
 
 console.log('db loaded')
 
@@ -49,6 +51,32 @@ router.get('/api/user_item_records/size=:num', function(req, res){
 	db_connection = db.createConnection;
 	db_connection.collection("User_Item").find({}).toArray(function(err, docs){
 		if (err) console.log(err)
+		for (var i in docs){
+			docs[i].price = (docs[i].price/ 100).toFixed(2);
+			docs[i].time = moment(docs[i].time).format('YYYY-DD-MM');
+		}
+		console.log(docs); // it will print your collection data
+		res.send(JSON.stringify(docs));
+	})
+	return;
+})
+
+router.get('/api/get_item/id=:id', function(req, res){
+	console.log('getting one item')
+	console.log('id ', req.params['id'])
+	db_connection = db.createConnection;
+	// db_connection.collection("User_Item").find({postID: req.params['id']}.toArray(function(err, obj){
+	// 	if (err) console.log(err)
+
+	// 	obj[1].price = (obj[1].price/ 100).toFixed(2);
+	// 	obj[1].time = moment(obj.time).format('YYYY-DD-MM');
+	// 	console.log(obj[1]); // it will print your collection data
+	// 	res.send(JSON.stringify(obj[1]));
+	// }));
+	db_connection.collection("User_Item").find({postID: req.params['id']}).toArray(function(err, docs){
+		if (err) console.log(err)
+		docs[0].price = (docs[0].price/ 100).toFixed(2);
+		docs[0].time = moment(docs[0].time).format('YYYY-DD-MM');
 		console.log(docs); // it will print your collection data
 		res.send(JSON.stringify(docs));
 	})
@@ -58,7 +86,8 @@ router.get('/api/user_item_records/size=:num', function(req, res){
 router.post('/api/create_user_item', function(req, res){
 	console.log('create user item')
 	var userItem = new Model.user_item({
-		userID: '1',
+		userID: 1,
+		postID: uuidv1(),
 		title: req.body.title,
 		location: req.body.location,
 		price: req.body.price,

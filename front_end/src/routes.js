@@ -193,7 +193,10 @@ const Test = Loadable({
   loader: () => import('./views/Test/Test'),
   loading: Loading,
 });
-
+const DisplayItem = Loadable({
+  loader: () => import('./views/Item/Item'),
+  loading: Loading,
+});
 
 
 
@@ -235,6 +238,7 @@ const routes = [
   { path: '/new_request', name: 'New Request', component: New_Request },
   { path: '/feedback', name: 'Feedback', component: Feedback },
   { path: '/test', name: 'Test', component: Test },
+  { path: '/item/:id', exact: true, name: 'item', component: DisplayItem },
   { path: '/notifications', exact: true, name: 'Notifications', component: Alerts },
   { path: '/notifications/alerts', name: 'Alerts', component: Alerts },
   { path: '/notifications/badges', name: 'Badges', component: Badges },

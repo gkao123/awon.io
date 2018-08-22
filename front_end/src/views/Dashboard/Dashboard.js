@@ -479,6 +479,7 @@ class Dashboard extends Component {
       .then(res => {return res.json();})
       .then(
         (res) => {
+          console.log(res)
           this.setState({
             isLoaded: true,
             userItems: res
@@ -504,6 +505,7 @@ class Dashboard extends Component {
 
   render() {
     const { error, isLoaded, userItems } = this.state;
+    console.log(this.state.userItems.length)
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -512,17 +514,17 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-        <ul>
+        <ul class= "list-unstyled">
           {this.state.userItems.map(item => (
-            <li key={item.name}>
+            <li key={item.title}>
             <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
               <CardBody className="pb-0">
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">{item.price}</div>
-                <div className="item_description">{item.title}</div>
-                <div className="location_description">{item.location}</div>
-                <div className="location_description">{item.date}</div>
+                <a href={'/#/item/'+ item.postID} style={{color:"#ffffff"}}>
+                <div className="sell_value" key={item.price}>${item.price}</div>
+                <div className="item_description" key={item.title}>{item.title}</div>
+                <div className="location_description" key={item.location}>{item.location}</div>
+                <div className="location_description"key={item.time}>{item.time}</div>
                 <div className="invisible">""</div>
                 </a>
               </CardBody>
