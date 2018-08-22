@@ -505,19 +505,14 @@ class Dashboard extends Component {
 
   render() {
     const { error, isLoaded, userItems } = this.state;
-    console.log(this.state.userItems.length)
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-    return (
-      <div className="animated fadeIn">
-        <Row>
-        <ul class= "list-unstyled">
-          {this.state.userItems.map(item => (
-            <li key={item.title}>
-            <Col xs="12" sm="6" lg="12">
+      var userItemComponent = this.state.userItems.map(function(item) {
+        return (
+          <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
               <CardBody className="pb-0">
                 <a href={'/#/item/'+ item.postID} style={{color:"#ffffff"}}>
@@ -530,9 +525,12 @@ class Dashboard extends Component {
               </CardBody>
             </Card>
           </Col>
-            </li>
-          ))}
-        </ul>
+        )
+      });
+    return (
+      <div className="animated fadeIn">
+        <Row>
+          {userItemComponent}
           <Col xs="12" sm="6" lg="12">
             <Card className="text-white bg-info" >
               <CardBody className="pb-0">
