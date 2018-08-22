@@ -65,14 +65,6 @@ router.get('/api/get_item/id=:id', function(req, res){
 	console.log('getting one item')
 	console.log('id ', req.params['id'])
 	db_connection = db.createConnection;
-	// db_connection.collection("User_Item").find({postID: req.params['id']}.toArray(function(err, obj){
-	// 	if (err) console.log(err)
-
-	// 	obj[1].price = (obj[1].price/ 100).toFixed(2);
-	// 	obj[1].time = moment(obj.time).format('YYYY-DD-MM');
-	// 	console.log(obj[1]); // it will print your collection data
-	// 	res.send(JSON.stringify(obj[1]));
-	// }));
 	db_connection.collection("User_Item").find({postID: req.params['id']}).toArray(function(err, docs){
 		if (err) console.log(err)
 		docs[0].price = (docs[0].price/ 100).toFixed(2);
