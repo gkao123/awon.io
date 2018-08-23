@@ -72,7 +72,7 @@ export default class New_Request extends React.Component {
     if (input.length > 2){
       console.log('hit2')
       var locationString = input;
-      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&types=geocode&key=' + this.googleApiKey
+      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&key=' + this.googleApiKey
       return fetch(apiURL,{
         method: 'get',
         dataType: 'json',
