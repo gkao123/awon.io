@@ -1,11 +1,13 @@
 //New_Request.js
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import AsyncSelect from 'react-select/lib/Async';
 
 export default class New_Request extends React.Component {
   constructor(props) {
     super(props);
     this.api_URL = 'http://localhost:3000/api/create_user_item';
+    this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = { 
       modal: false, 
       type: 'info',
@@ -13,6 +15,11 @@ export default class New_Request extends React.Component {
       title: '',
       price: '',
       location: '',
+      options : [],
+      locationErrorMessage: '',
+      latitude: null,
+      longitude: null,
+      isGeocoding: false,
       description: '',
       contactInfo: ''
     }
@@ -24,9 +31,9 @@ export default class New_Request extends React.Component {
   handlePriceChange(event){
     this.setState({price: event.target.value});
   }
-  handleLocationChange(event){
-    this.setState({location: event.target.value});
-  }
+  handleLocationChange(input) {
+    this.setState({location: input});
+  };
   handleDescriptionChange(event){
     this.setState({description: event.target.value});
   }
@@ -60,6 +67,43 @@ export default class New_Request extends React.Component {
     })
   }
     //  <button onClick={this.toggle}><i class="fas fa-plus-circle"></i></button>
+   
+  loadOptions = (input) => {
+    if (input.length > 2){
+      console.log('hit2')
+      var locationString = input;
+      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&types=geocode&key=' + this.googleApiKey
+      return fetch(apiURL,{
+        method: 'get',
+        dataType: 'json',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {return res.json();})
+      .then(
+        (res) => {
+          let ret = [];
+          console.log('typeof ', typeof res.predictions)
+          console.log('predictions ', res.predictions)
+          var predictionArray = Array.from(res.predictions)
+          for(var i in  predictionArray) {
+            ret.push({value: predictionArray[i].description, label: predictionArray[i].description})
+          }
+          console.log("ret ", ret)
+          return ret
+        })
+        .catch(err => {
+            console.log('could not fetch data');
+            console.log(err);
+            return {options: []}
+        })
+      
+    } else{
+      return {options: []}
+    }
+  };
 
   render() {
     if (this.state.message && this.state.type) {
@@ -84,7 +128,7 @@ export default class New_Request extends React.Component {
               <div class = "form-group col-md-9">
                 <FormGroup>
                   <Label for="exampleText">Location</Label>
-                  <Input type="text" value={this.state.location} onChange = {e => this.handleLocationChange(e)}/>
+                  <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={(value) => { this.setState({location: value}); }}/>
                 </FormGroup>
               </div>
               <div class = "form-group col-md-3">
@@ -116,3 +160,6 @@ export default class New_Request extends React.Component {
     );
   }
 }
+// export default scriptLoader(
+//   ["https://maps.googleapis.com/maps/api/js?key=AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8&libraries=places"]
+// )(New_Request)
