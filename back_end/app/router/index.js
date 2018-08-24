@@ -82,6 +82,8 @@ router.post('/api/create_user_item', function(req, res){
 		postID: uuidv1(),
 		title: req.body.title,
 		location: req.body.location,
+		latitude: req.body.latitude,
+		longitude: req.body.longitude,
 		price: req.body.price,
 		time: new Date(),
 		body: req.body.body,
@@ -96,6 +98,8 @@ router.post('/api/create_user_item', function(req, res){
 		} else{
 			console.log('title ', req.body.title)
 			console.log('location ', req.body.location)
+			console.log('latitude ', req.body.latitude)
+			console.log('longitude ', req.body.longitude)
 			console.log('price ', req.body.price)
 			console.log('body ', req.body.body)
 			console.log('contactInfo ', req.body.contactInfo)

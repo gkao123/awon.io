@@ -22,6 +22,8 @@ var userPostSchema = new Schema({
     title: String,
     location: String,
     price: { type: Number, set: setPrice},
+    longitude : Number,
+    latitude: Number,
     time: { type: Date},
     body: String,
     contactInfo: String,

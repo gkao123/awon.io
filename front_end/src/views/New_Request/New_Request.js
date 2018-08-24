@@ -23,6 +23,7 @@ export default class New_Request extends React.Component {
       description: '',
       contactInfo: ''
     }
+    this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   handleTitleChange(event){
@@ -32,7 +33,33 @@ export default class New_Request extends React.Component {
     this.setState({price: event.target.value});
   }
   handleLocationChange(input) {
-    this.setState({location: input});
+    if (input == null){
+      this.setState({location: '', latitude: null, longitude:null})
+    } else{
+      if (input.value == null){
+        this.setState({location: '', latitude: null, longitude:null})
+        return
+      }
+      var apiURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + input.value[0].place_id + '&fields=geometry&key=' + this.googleApiKey
+      fetch(apiURL,{
+          method: 'get',
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(res => {return res.json();})
+        .then(
+          (res) => {
+            this.setState({location: input.value[0].description, latitude: res.result.geometry.location.lat, longitude:res.result.geometry.location.lng})
+          })
+          .catch(err => {
+              console.log('could not fetch data');
+              console.log(err);
+              return {options: []}
+          })
+    }
   };
   handleDescriptionChange(event){
     this.setState({description: event.target.value});
@@ -57,6 +84,8 @@ export default class New_Request extends React.Component {
       body: JSON.stringify({
         title: this.state.title,
         location: this.state.location,
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
         price: this.state.price,
         body: this.state.description,
         contactInfo: this.state.contactInfo
@@ -70,7 +99,6 @@ export default class New_Request extends React.Component {
    
   loadOptions = (input) => {
     if (input.length > 2){
-      console.log('hit2')
       var locationString = input;
       var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&key=' + this.googleApiKey
       return fetch(apiURL,{
@@ -85,13 +113,12 @@ export default class New_Request extends React.Component {
       .then(
         (res) => {
           let ret = [];
-          console.log('typeof ', typeof res.predictions)
-          console.log('predictions ', res.predictions)
           var predictionArray = Array.from(res.predictions)
           for(var i in  predictionArray) {
-            ret.push({value: predictionArray[i].description, label: predictionArray[i].description})
+            let valueArray = []
+            valueArray.push({description: predictionArray[i].description, place_id: predictionArray[i].place_id})
+            ret.push({value: valueArray, label: predictionArray[i].description})
           }
-          console.log("ret ", ret)
           return ret
         })
         .catch(err => {
@@ -128,7 +155,7 @@ export default class New_Request extends React.Component {
               <div class = "form-group col-md-9">
                 <FormGroup>
                   <Label for="exampleText">Location</Label>
-                  <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={(value) => { this.setState({location: value}); }}/>
+                  <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={this.handleLocationChange}/>
                 </FormGroup>
               </div>
               <div class = "form-group col-md-3">
