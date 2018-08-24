@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import AsyncSelect from 'react-select/lib/Async';
+import Item_List from './Item_List';
 import {
   Badge,
   Button,
@@ -24,6 +25,7 @@ import {
 import Widget03 from '../../views/Widgets/Widget03'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
@@ -456,16 +458,21 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.api_URL = 'http://localhost:3000/api/user_item_records/size=5';
-
+    this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
       error: null,
       isLoaded: false,
-      userItems: []
+      userItems: [],
+      currentLocation: 'Brandeis University',
+      latitude: 42.3663,
+      longitude: 71.2592,
+      items: null
     };
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+
   }
   componentDidMount() {
     fetch(this.api_URL,{
@@ -479,7 +486,6 @@ class Dashboard extends Component {
       .then(res => {return res.json();})
       .then(
         (res) => {
-          console.log(res)
           this.setState({
             isLoaded: true,
             userItems: res
@@ -496,120 +502,212 @@ class Dashboard extends Component {
         }
       )
   }
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
-  }
+  handleLocationChange(input) {
+    if (input == null){
+        return;
+    } else{
+      if (input.value == null){
+        return;
+      }
+      var apiURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + input.value[0].place_id + '&fields=geometry&key=' + this.googleApiKey
+      fetch(apiURL,{
+          method: 'get',
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(res => {return res.json();})
+        .then(
+          (res) => {
+            console.log('res ', res)
+            this.setState({currentLocation: input.value[0].description, latitude: res.result.geometry.location.lat, longitude:res.result.geometry.location.lng})
+          })
+        .catch(err => {
+            console.log('could not fetch data');
+            console.log(err);
+        })
+        fetch(this.api_URL,{
+          method: 'get',
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(res => {return res.json();})
+          .then(
+            (res) => {
+              this.setState({
+                isLoaded: true,
+                userItems: res
+              });
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+    }
+  };
+  loadOptions = (input) => {
+    if (input.length > 2){
+      var locationString = input;
+      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&key=' + this.googleApiKey;
+      return fetch(apiURL,{
+        method: 'get',
+        dataType: 'json',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {return res.json();})
+      .then(
+        (res) => {
+          let ret = [];
+          var predictionArray = Array.from(res.predictions)
+          for(var i in  predictionArray) {
+            let valueArray = []
+            valueArray.push({description: predictionArray[i].description, place_id: predictionArray[i].place_id})
+            ret.push({value: valueArray, label: predictionArray[i].description})
+          }
+          return ret
+        })
+        .catch(err => {
+            console.log('could not fetch data');
+            console.log(err);
+            return {options: []}
+        })
+      
+    } else{
+      return {options: []}
+    }
+  };
 
   render() {
+    if (navigator.geolocation){
+      var x = navigator.geolocation.getCurrentPosition(function (position) {
+          console.log('latitude ', position.coords.latitude)
+          let positionArray = []
+          positionArray.push({latitude: position.coords.latitude, longitude: position.coords.longitude})
+          return positionArray
+          // this.setState({latitude: position.coords.latitude, longitude: position.coords.longitude, currentLocation: 'Current Location'})
+      }, function (e) {
+          console.log(e)
+          return null;
+      }, {
+          enableHighAccuracy: true,
+          timeout:5000
+      });
+      if (x!=null){
+        this.setState({latitude: x.latitude, longitude: x.longitude, currentLocation: 'Current Location'})
+      }
+    }
     const { error, isLoaded, userItems } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      var userItemComponent = this.state.userItems.map(function(item) {
-        return (
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info" >
-              <CardBody className="pb-0">
-                <a href={'/#/item/'+ item.postID} style={{color:"#ffffff"}}>
-                <div className="sell_value" key={item.price}>${item.price}</div>
-                <div className="item_description" key={item.title}>{item.title}</div>
-                <div className="location_description" key={item.location}>{item.location}</div>
-                <div className="location_description"key={item.time}>{item.time}</div>
-                <div className="invisible">""</div>
-                </a>
-              </CardBody>
-            </Card>
-          </Col>
-        )
-      });
-    return (
-      <div className="animated fadeIn">
+      return (
+        <div className="animated fadeIn">
         <Row>
-          {userItemComponent}
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info" >
-              <CardBody className="pb-0">
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">$1000</div>
-                <div className="item_description">Need Macbook Pro 15 2017/2016</div>
-                <div className="location_description">Foster Mods, Brandeis University</div>
-                <div className="location_description">17 Jun 2018</div>
-                <div className="invisible">""</div>
+          <Col>
+          Location: {this.state.currentLocation} 
+          </Col>
+          </Row>
+          <div>
+          <label for="exampleText">Update Location:</label>
+          <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={this.handleLocationChange}/>
+          </div>
+          <Row>
+            <Item_List userItems={this.state.userItems}/>
+            <Col xs="12" sm="6" lg="12">
+              <Card className="text-white bg-info" >
+                <CardBody className="pb-0">
+                  <a href="" style={{color:"#ffffff"}}>
+                  <div className="sell_value">$1000</div>
+                  <div className="item_description">Need Macbook Pro 15 2017/2016</div>
+                  <div className="location_description">Foster Mods, Brandeis University</div>
+                  <div className="location_description">17 Jun 2018</div>
+                  <div className="invisible">""</div>
+                  </a>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="12" sm="6" lg="12">
+              <Card className="text-white bg-info" >
+                <CardBody className="pb-0">
+                  <a href="" style={{color:"#ffffff"}}>
+                  <div className="sell_value">$119</div>
+                  <div className="item_description">Help me move my stuff out of my room!</div>
+                  <div className="location_description">Charles River Apartments, Brandeis University</div>
+                  <div className="location_description">28 July 2018</div>
+                  <div className="invisible">""</div>
+                  </a>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="12" sm="6" lg="12">
+              <Card className="text-white bg-info">
+                <CardBody className="pb-0">
+
+                  <a href="" style={{color:"#ffffff"}}>
+                  <div className="sell_value">$560</div>
+                  <div className="item_description">Subletter for one month (July) at 244 Cresecent Street</div>
+                  <div className="location_description">244 Crescent Street, Waltham MA</div>
+                  <div className="location_description">13 May 2018</div>
+                  <div className="invisible">""</div>
                 </a>
-              </CardBody>
-            </Card>
-          </Col>
+                </CardBody>
+                {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                  <Line data={cardChartData1} options={cardChartOpts1} height={70} />
+                </div> */}
+              </Card>
+            </Col>
 
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info" >
-              <CardBody className="pb-0">
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">$119</div>
-                <div className="item_description">Help me move my stuff out of my room!</div>
-                <div className="location_description">Charles River Apartments, Brandeis University</div>
-                <div className="location_description">28 July 2018</div>
-                <div className="invisible">""</div>
+            <Col xs="12" sm="6" lg="12">
+              <Card className="text-white bg-info">
+                <CardBody className="pb-0">
+                  <a href="" style={{color:"#ffffff"}}>
+                  <div className="sell_value">$110</div>
+                  <div className="item_description">Looking to buy Introduction to Alogrithms 3rd Edition</div>
+                  <div className="location_description">Usen Hall, Brandeis University</div>
+                  <div className="location_description">5 May 2018</div>
+                  <div className="invisible">""</div>
                 </a>
-              </CardBody>
-            </Card>
-          </Col>
+                </CardBody>
+              </Card>
+            </Col>
 
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info">
-              <CardBody className="pb-0">
+            <Col xs="12" sm="6" lg="12">
+              <Card className="text-white bg-info">
+                <CardBody className="pb-0">
+                  <a href="" style={{color:"#ffffff"}}>
+                  <div className="sell_value">$16</div>
+                  <div className="item_description">3 Chobani yogurts (strawberry) from Hannafords</div>
+                  <div className="location_description">Hassenfield Hall, Brandeis University</div>
+                  <div className="location_description">10 July 2018</div>
+                  <div className="invisible">""</div>
+                </a>
 
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">$560</div>
-                <div className="item_description">Subletter for one month (July) at 244 Cresecent Street</div>
-                <div className="location_description">244 Crescent Street, Waltham MA</div>
-                <div className="location_description">13 May 2018</div>
-                <div className="invisible">""</div>
-              </a>
-              </CardBody>
-              {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
-              </div> */}
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info">
-              <CardBody className="pb-0">
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">$110</div>
-                <div className="item_description">Looking to buy Introduction to Alogrithms 3rd Edition</div>
-                <div className="location_description">Usen Hall, Brandeis University</div>
-                <div className="location_description">5 May 2018</div>
-                <div className="invisible">""</div>
-              </a>
-              </CardBody>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="12">
-            <Card className="text-white bg-info">
-              <CardBody className="pb-0">
-                <a href="" style={{color:"#ffffff"}}>
-                <div className="sell_value">$16</div>
-                <div className="item_description">3 Chobani yogurts (strawberry) from Hannafords</div>
-                <div className="location_description">Hassenfield Hall, Brandeis University</div>
-                <div className="location_description">10 July 2018</div>
-                <div className="invisible">""</div>
-              </a>
-
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    );
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
   }
-}
 }
 
 export default Dashboard;
