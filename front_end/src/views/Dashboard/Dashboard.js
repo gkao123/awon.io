@@ -458,7 +458,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5';
+    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = {
       dropdownOpen: false,
@@ -475,7 +475,8 @@ class Dashboard extends Component {
 
   }
   componentDidMount() {
-    fetch(this.api_URL,{
+    var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
+    fetch(updatedapi_URL,{
       method: 'get',
       dataType: 'json',
       headers: {
@@ -528,7 +529,8 @@ class Dashboard extends Component {
             console.log('could not fetch data');
             console.log(err);
         })
-        fetch(this.api_URL,{
+        var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
+        fetch(updatedapi_URL,{
           method: 'get',
           dataType: 'json',
           headers: {

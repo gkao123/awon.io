@@ -45,16 +45,25 @@ router.get('/admin/panel', requiresAdmin, admin.renderPanel)
 
 router.get('/health', monitoring.health(db))
 
-router.get('/api/user_item_records/size=:num', function(req, res){
-	console.log('getting records')
-	console.log('size ', req.params['num'])
+router.get('/api/user_item_records/size=:num/lat=:latitude/long=:longitude', function(req, res){
 	db_connection = db.createConnection;
 	db_connection.collection("User_Item").find({}).toArray(function(err, docs){
 		if (err) console.log(err)
 		for (var i in docs){
 			docs[i].price = (docs[i].price/ 100).toFixed(2);
 			docs[i].time = moment(docs[i].time).format('YYYY-DD-MM');
+			function distance(lat1, lon1, lat2, lon2) {
+				var p = 0.017453292519943295;    // Math.PI / 180
+				var c = Math.cos;
+				var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+						c(lat1 * p) * c(lat2 * p) * 
+						(1 - c((lon2 - lon1) * p))/2;
+				return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+			  }
+			x = distance(parseFloat(req.params.latitude), parseFloat(req.params.longitude), docs[i].latitude, docs[i].longitude)
+			docs[i].distance = x;
 		}
+		docs.sort(function(a,b){return b.distance-a.distance})
 		console.log(docs); // it will print your collection data
 		res.send(JSON.stringify(docs));
 	})
