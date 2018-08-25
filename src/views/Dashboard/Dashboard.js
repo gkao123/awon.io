@@ -458,7 +458,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.api_URL = 'www.awon.io/api/user_item_records/size=5/';
+    this.api_URL = 'api.awon.io/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = {
       dropdownOpen: false,
