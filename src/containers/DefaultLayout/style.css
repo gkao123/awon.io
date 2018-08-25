@@ -1,0 +1,56 @@
+.app-header {
+  position: relative;
+  flex-direction: row;
+  height: 55px;
+  padding: 0;
+  margin: 0;
+  background-color: #ff0000;
+  border-bottom: 1px solid #c8ced3; }
+  .app-header .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 155px;
+    height: 55px;
+    padding: 0;
+    margin-right: 0;
+    background-color: #ff0000; }
+    .app-header .navbar-brand .navbar-brand-minimized {
+      display: none; }
+  .app-header .navbar-toggler {
+    min-width: 50px;
+    padding: 0.25rem 0; }
+    .app-header .navbar-toggler:hover .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%232f353a' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
+  .app-header .navbar-toggler-icon {
+    height: 23px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2373818f' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
+  .app-header .navbar-nav {
+    flex-direction: row;
+    align-items: center; }
+  .app-header .nav-item {
+    position: relative;
+    min-width: 50px;
+    margin: 0;
+    text-align: center; }
+    .app-header .nav-item button {
+      margin: 0 auto; }
+    .app-header .nav-item .nav-link {
+      padding-top: 0;
+      padding-bottom: 0;
+      background: 0;
+      border: 0; }
+      .app-header .nav-item .nav-link .badge {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -16px;
+        margin-left: 0; }
+      .app-header .nav-item .nav-link > .img-avatar, .app-header .nav-item .avatar.nav-link > img {
+        height: 35px;
+        margin: 0 10px; }
+  .app-header .dropdown-menu {
+    padding-bottom: 0;
+    line-height: 1.5; }
+  .app-header .dropdown-item {
+    min-width: 180px; }
