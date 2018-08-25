@@ -6,7 +6,7 @@ import AsyncSelect from 'react-select/lib/Async';
 export default class New_Request extends React.Component {
   constructor(props) {
     super(props);
-    this.api_URL = 'https://api.awon.io/api/create_user_item';
+    this.api_URL = 'http://api.awon.io/api/create_user_item';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = { 
       modal: false, 
