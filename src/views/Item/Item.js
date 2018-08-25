@@ -7,7 +7,7 @@ import ContactInfoModal from './ContactInfoModal.js'
 class Item extends Component {
     constructor(props) {
         super(props);
-        this.api_URL = 'api.awon.io/api/get_item/id=' + this.props.match.params.id;
+        this.api_URL = 'https://api.awon.io/api/get_item/id=' + this.props.match.params.id;
 
         this.state = {
             error: null,

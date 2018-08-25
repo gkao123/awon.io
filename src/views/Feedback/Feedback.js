@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 class Feedback extends Component {
   constructor(props){
     super(props);
-    this.feedback_URL = 'api.awon.io/api/feedback_redirect';
+    this.feedback_URL = 'https://api.awon.io/api/feedback_redirect';
     this.state = {
       type: 'info',
       message: '',
