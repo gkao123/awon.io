@@ -458,7 +458,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5/';
+    this.api_URL = 'http://api.awon.io/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = {
       dropdownOpen: false,
@@ -466,7 +466,7 @@ class Dashboard extends Component {
       error: null,
       isLoaded: false,
       userItems: [],
-      currentLocation: 'Brandeis University',
+      location: 'Brandeis University',
       latitude: 42.3663,
       longitude: 71.2592,
       items: null
@@ -475,6 +475,15 @@ class Dashboard extends Component {
 
   }
   componentDidMount() {
+    const script = document.createElement("script");
+    var srcString = "https://maps.googleapis.com/maps/api/js?key=" + this.googleApiKey + "&libraries=places";
+    script.src = srcString;
+    script.async = true;
+    document.head.appendChild(script);
+    script.onload = function() {
+        console.log('loaded');
+        document.head.appendChild(script);
+    };
     var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
     fetch(updatedapi_URL,{
       method: 'get',
@@ -503,95 +512,71 @@ class Dashboard extends Component {
         }
       )
   }
-  handleLocationChange(input) {
+handleLocationChange(input) {
     if (input == null){
-        return;
+      return this.setState({location: '', latitude: null, longitude:null})
     } else{
       if (input.value == null){
+        this.setState({location: '', latitude: null, longitude:null})
+        return
+      }else{
+        async function f(input){
+          var latlngArray = {lat:0, lng:0}
+          let promise = new Promise((resolve, reject) => {
+            var geocoder = new window.google.maps.Geocoder();
+            geocoder.geocode({'placeId': input.value[0].place_id},function(results, status) {
+              if (status == 'OK') {
+                latlngArray.lat = results[0].geometry.location.lat();
+                latlngArray.lng = results[0].geometry.location.lng();
+                console.log('array ', latlngArray)
+                resolve(latlngArray)
+                } else {
+                console.log('Geocode was not successful for the following reason: ' + status);
+               }
+            });
+          });
+          let result = await(promise);
+          return result;
+        }
+        f(input).then(res => {
+          console.log('res ', res)
+          this.setState({location: input.value[0].description, latitude: res.lat, longitude: res.lng});
+          })
         return;
       }
-      var apiURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + input.value[0].place_id + '&fields=geometry&key=' + this.googleApiKey
-      fetch(apiURL,{
-          method: 'get',
-          dataType: 'json',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(res => {return res.json();})
-        .then(
-          (res) => {
-            console.log('res ', res)
-            this.setState({currentLocation: input.value[0].description, latitude: res.result.geometry.location.lat, longitude:res.result.geometry.location.lng})
-          })
-        .catch(err => {
-            console.log('could not fetch data');
-            console.log(err);
-        })
-        var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
-        fetch(updatedapi_URL,{
-          method: 'get',
-          dataType: 'json',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-          .then(res => {return res.json();})
-          .then(
-            (res) => {
-              this.setState({
-                isLoaded: true,
-                userItems: res
-              });
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-    }
-  };
+    };
+  }
   loadOptions = (input) => {
-    if (input.length > 2){
-      var locationString = input;
-      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&key=' + this.googleApiKey;
-      return fetch(apiURL,{
-        method: 'get',
-        dataType: 'json',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {return res.json();})
-      .then(
-        (res) => {
+    if (input.length>2){
+      var query = {input: input};
+      async function f(query){
+        let promise = new Promise((resolve, reject) => {
+          var autocompleteService = new window.google.maps.places.AutocompleteService();
           let ret = [];
-          var predictionArray = Array.from(res.predictions)
-          for(var i in  predictionArray) {
-            let valueArray = []
-            valueArray.push({description: predictionArray[i].description, place_id: predictionArray[i].place_id})
-            ret.push({value: valueArray, label: predictionArray[i].description})
-          }
-          return ret
-        })
-        .catch(err => {
-            console.log('could not fetch data');
-            console.log(err);
-            return {options: []}
-        })
-      
-    } else{
-      return {options: []}
+          var displaySuggestions = function (predictions, status) {
+            if (status != window.google.maps.places.PlacesServiceStatus.OK) {
+                return {options: []}
+            }
+            predictions.forEach(function (prediction) {
+              let valueArray = []
+              valueArray.push({description: prediction.description, place_id: prediction.place_id})
+              ret.push({value: valueArray, label: prediction.description})
+              console.log('ret', ret)
+              resolve(ret)
+            });
+          };        
+          autocompleteService.getPlacePredictions(query, displaySuggestions);
+        });
+        let result = await promise;
+        return result;
+      }
+      return f(query);
     }
+    else{
+        return {options: []}
+      }
   };
+
 
   render() {
     if (navigator.geolocation){
@@ -600,7 +585,6 @@ class Dashboard extends Component {
           let positionArray = []
           positionArray.push({latitude: position.coords.latitude, longitude: position.coords.longitude})
           return positionArray
-          // this.setState({latitude: position.coords.latitude, longitude: position.coords.longitude, currentLocation: 'Current Location'})
       }, function (e) {
           console.log(e)
           return null;
@@ -609,7 +593,7 @@ class Dashboard extends Component {
           timeout:5000
       });
       if (x!=null){
-        this.setState({latitude: x.latitude, longitude: x.longitude, currentLocation: 'Current Location'})
+        this.setState({latitude: x.latitude, longitude: x.longitude, location: 'Current Location'})
       }
     }
     const { error, isLoaded, userItems } = this.state;
@@ -622,7 +606,7 @@ class Dashboard extends Component {
         <div className="animated fadeIn">
         <Row>
           <Col>
-          Location: {this.state.currentLocation} 
+          Location: {this.state.location} 
           </Col>
           </Row>
           <div>

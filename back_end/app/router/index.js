@@ -19,6 +19,12 @@ const uuidv1 = require('uuid/v1');
 console.log('db loaded')
 
 
+router.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+  });
+  
 //login
 router.get('/api/login', function(req, res) {
 	res.render('login.ejs', { message: req.flash('loginMessage') });
