@@ -511,6 +511,30 @@ class Dashboard extends Component {
           });
         }
       )
+    fetch('http://ip-api.com/json',{
+      method: 'get',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {return res.json();})
+      .then(
+        (res) => {
+          this.latitude = res.lat,
+          this.longitude = res.lon,
+          this.location = 'Current Location'
+          window.userlat = res.lat,
+          window.userlon = res.lon
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log(error)
+        }
+      )
   }
 handleLocationChange(input) {
     if (input == null){
@@ -549,6 +573,10 @@ handleLocationChange(input) {
   loadOptions = (input) => {
     if (input.length>2){
       var query = {input: input};
+      if (window.userlat != null && window.userlon !=null){
+        var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
+        query = {input: input, location: userLatLng}
+      }
       async function f(query){
         let promise = new Promise((resolve, reject) => {
           var autocompleteService = new window.google.maps.places.AutocompleteService();
@@ -579,23 +607,6 @@ handleLocationChange(input) {
 
 
   render() {
-    if (navigator.geolocation){
-      var x = navigator.geolocation.getCurrentPosition(function (position) {
-          console.log('latitude ', position.coords.latitude)
-          let positionArray = []
-          positionArray.push({latitude: position.coords.latitude, longitude: position.coords.longitude})
-          return positionArray
-      }, function (e) {
-          console.log(e)
-          return null;
-      }, {
-          enableHighAccuracy: true,
-          timeout:5000
-      });
-      if (x!=null){
-        this.setState({latitude: x.latitude, longitude: x.longitude, location: 'Current Location'})
-      }
-    }
     const { error, isLoaded, userItems } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;

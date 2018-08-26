@@ -18,7 +18,8 @@ export default class New_Request extends React.Component {
       price: '',
       location: '',
       options : [],
-      locationErrorMessage: '',
+      userlat: null,
+      userlng: null,
       latitude: null,
       longitude: null,
       isGeocoding: false,
@@ -38,6 +39,31 @@ export default class New_Request extends React.Component {
         console.log('loaded');
         document.head.appendChild(script);
     };
+    fetch('http://ip-api.com/json',{
+      method: 'get',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {return res.json();})
+      .then(
+        (res) => {
+          this.setState({
+            userlat: res.lat,
+            userlng: res.lon
+          });
+          window.userlat = res.lat,
+          window.userlon = res.lon
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log(error)
+        }
+      )
 }
 
   handleTitleChange(event){
@@ -119,6 +145,11 @@ export default class New_Request extends React.Component {
   loadOptions = (input) => {
     if (input.length>2){
       var query = {input: input};
+      if (window.userlat != null && window.userlon !=null){
+        var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
+        query = {input: input, location: userLatLng}
+      }
+      
       async function f(query){
         let promise = new Promise((resolve, reject) => {
           var autocompleteService = new window.google.maps.places.AutocompleteService();
