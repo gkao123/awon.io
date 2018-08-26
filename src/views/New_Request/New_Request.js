@@ -3,11 +3,13 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import AsyncSelect from 'react-select/lib/Async';
 
+
 export default class New_Request extends React.Component {
   constructor(props) {
     super(props);
     this.api_URL = 'http://api.awon.io/api/create_user_item';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
+    this.autoComplete = null,
     this.state = { 
       modal: false, 
       type: 'info',
@@ -25,6 +27,18 @@ export default class New_Request extends React.Component {
     }
     this.handleLocationChange = this.handleLocationChange.bind(this);
   }
+  componentDidMount () {
+    const script = document.createElement("script");
+    var srcString = "https://maps.googleapis.com/maps/api/js?key=" + this.googleApiKey + "&libraries=places";
+    script.src = srcString;
+    script.async = true;
+    document.head.appendChild(script);
+
+    script.onload = function() {
+        console.log('loaded');
+        document.head.appendChild(script);
+    };
+}
 
   handleTitleChange(event){
     this.setState({title: event.target.value});
@@ -34,33 +48,38 @@ export default class New_Request extends React.Component {
   }
   handleLocationChange(input) {
     if (input == null){
-      this.setState({location: '', latitude: null, longitude:null})
+      return this.setState({location: '', latitude: null, longitude:null})
     } else{
       if (input.value == null){
         this.setState({location: '', latitude: null, longitude:null})
         return
+      }else{
+        async function f(input){
+          var latlngArray = {lat:0, lng:0}
+          let promise = new Promise((resolve, reject) => {
+            var geocoder = new window.google.maps.Geocoder();
+            geocoder.geocode({'placeId': input.value[0].place_id},function(results, status) {
+              if (status == 'OK') {
+                latlngArray.lat = results[0].geometry.location.lat();
+                latlngArray.lng = results[0].geometry.location.lng();
+                console.log('array ', latlngArray)
+                resolve(latlngArray)
+                } else {
+                console.log('Geocode was not successful for the following reason: ' + status);
+               }
+            });
+          });
+          let result = await(promise);
+          return result;
+        }
+        f(input).then(res => {
+          console.log('res ', res)
+          this.setState({location: input.value[0].description, latitude: res.lat, longitude: res.lng});
+          })
+        return;
       }
-      var apiURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + input.value[0].place_id + '&fields=geometry&key=' + this.googleApiKey
-      fetch(apiURL,{
-          method: 'get',
-          dataType: 'json',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(res => {return res.json();})
-        .then(
-          (res) => {
-            this.setState({location: input.value[0].description, latitude: res.result.geometry.location.lat, longitude:res.result.geometry.location.lng})
-          })
-          .catch(err => {
-              console.log('could not fetch data');
-              console.log(err);
-              return {options: []}
-          })
-    }
-  };
+    };
+  }
   handleDescriptionChange(event){
     this.setState({description: event.target.value});
   }
@@ -98,38 +117,34 @@ export default class New_Request extends React.Component {
     //  <button onClick={this.toggle}><i class="fas fa-plus-circle"></i></button>
    
   loadOptions = (input) => {
-    if (input.length > 2){
-      var locationString = input;
-      var apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + locationString.split(' ').join('+') + '&key=' + this.googleApiKey
-      return fetch(apiURL,{
-        method: 'get',
-        dataType: 'json',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {return res.json();})
-      .then(
-        (res) => {
+    if (input.length>2){
+      var query = {input: input};
+      async function f(query){
+        let promise = new Promise((resolve, reject) => {
+          var autocompleteService = new window.google.maps.places.AutocompleteService();
           let ret = [];
-          var predictionArray = Array.from(res.predictions)
-          for(var i in  predictionArray) {
-            let valueArray = []
-            valueArray.push({description: predictionArray[i].description, place_id: predictionArray[i].place_id})
-            ret.push({value: valueArray, label: predictionArray[i].description})
-          }
-          return ret
-        })
-        .catch(err => {
-            console.log('could not fetch data');
-            console.log(err);
-            return {options: []}
-        })
-      
-    } else{
-      return {options: []}
+          var displaySuggestions = function (predictions, status) {
+            if (status != window.google.maps.places.PlacesServiceStatus.OK) {
+                return {options: []}
+            }
+            predictions.forEach(function (prediction) {
+              let valueArray = []
+              valueArray.push({description: prediction.description, place_id: prediction.place_id})
+              ret.push({value: valueArray, label: prediction.description})
+              console.log('ret', ret)
+              resolve(ret)
+            });
+          };        
+          autocompleteService.getPlacePredictions(query, displaySuggestions);
+        });
+        let result = await promise;
+        return result;
+      }
+      return f(query);
     }
+    else{
+        return {options: []}
+      }
   };
 
   render() {
