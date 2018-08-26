@@ -69,7 +69,7 @@ router.get('/api/user_item_records/size=:num/lat=:latitude/long=:longitude', fun
 			x = distance(parseFloat(req.params.latitude), parseFloat(req.params.longitude), docs[i].latitude, docs[i].longitude)
 			docs[i].distance = x;
 		}
-		docs.sort(function(a,b){return b.distance-a.distance})
+		docs.sort(function(a,b){return a.distance-b.distance})
 		console.log(docs); // it will print your collection data
 		res.send(JSON.stringify(docs));
 	})
