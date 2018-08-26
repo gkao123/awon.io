@@ -44,7 +44,6 @@ export default class New_Request extends React.Component {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
       }
     })
       .then(res => {return res.json();})
@@ -143,11 +142,11 @@ export default class New_Request extends React.Component {
     //  <button onClick={this.toggle}><i class="fas fa-plus-circle"></i></button>
    
   loadOptions = (input) => {
-    if (input.length>2){
+    if (input.length>1){
       var query = {input: input};
       if (window.userlat != null && window.userlon !=null){
         var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
-        query = {input: input, location: userLatLng}
+        query = {input: input, location: userLatLng, radius: 500}
       }
       
       async function f(query){

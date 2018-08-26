@@ -457,8 +457,8 @@ const mainChartOpts = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
-    this.api_URL = 'http://api.awon.io/api/user_item_records/size=5/';
+    
+    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.state = {
       dropdownOpen: false,
@@ -467,50 +467,13 @@ class Dashboard extends Component {
       isLoaded: false,
       userItems: [],
       location: 'Current Location',
-      latitude: 42.3663,
-      longitude: 71.2592,
+      latitude: 0,
+      longitude: 0,
       items: null
     };
     this.handleLocationChange = this.handleLocationChange.bind(this);
-
   }
-  componentDidMount() {
-    const script = document.createElement("script");
-    var srcString = "https://maps.googleapis.com/maps/api/js?key=" + this.googleApiKey + "&libraries=places";
-    script.src = srcString;
-    script.async = true;
-    document.head.appendChild(script);
-    script.onload = function() {
-        console.log('loaded');
-        document.head.appendChild(script);
-    };
-    var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
-    fetch(updatedapi_URL,{
-      method: 'get',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => {return res.json();})
-      .then(
-        (res) => {
-          this.setState({
-            isLoaded: true,
-            userItems: res
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+  getUserlocation(){
     fetch('http://ip-api.com/json',{
       method: 'get',
       dataType: 'json',
@@ -522,8 +485,9 @@ class Dashboard extends Component {
       .then(
         (res) => {
           console.log('res ', res)
-          this.latitude = res.lat,
-          this.longitude = res.lon,
+          this.setState({latitude: res.lat, longitude: res.lon})
+          console.log('res.lat ', res.lat)
+          console.log('res.lon ', res.lon)
           this.location = 'Current Location'
           window.userlat = res.lat,
           window.userlon = res.lon
@@ -536,12 +500,54 @@ class Dashboard extends Component {
         }
       )
   }
+  componentDidMount() {
+    const script = document.createElement("script");
+    var srcString = "https://maps.googleapis.com/maps/api/js?key=" + this.googleApiKey + "&libraries=places";
+    script.src = srcString;
+    script.async = true;
+    document.head.appendChild(script);
+    script.onload = function() {
+        console.log('loaded');
+        document.head.appendChild(script);
+    };
+    this.getUserlocation();
+    this.generateUserItems();
+  }
+generateUserItems(){
+  console.log('generate')
+  var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
+  fetch(updatedapi_URL,{
+    method: 'get',
+    dataType: 'json',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(res => {return res.json();})
+    .then(
+      (res) => {
+        this.setState({
+          isLoaded: true,
+          userItems: res
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
+}
 handleLocationChange(input) {
     if (input == null){
-      return this.setState({location: '', latitude: null, longitude:null})
+      return;
     } else{
       if (input.value == null){
-        this.setState({location: '', latitude: null, longitude:null})
         return
       }else{
         async function f(input){
@@ -564,18 +570,21 @@ handleLocationChange(input) {
         }
         f(input).then(res => {
           console.log('res ', res)
+          window.userlat = res.lat;
+          window.userlon = res.lng;
           this.setState({location: input.value[0].description, latitude: res.lat, longitude: res.lng});
+          this.generateUserItems();
           })
         return;
       }
     };
   }
   loadOptions = (input) => {
-    if (input.length>2){
+    if (input.length>1){
       var query = {input: input};
       if (window.userlat != null && window.userlon !=null){
         var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
-        query = {input: input, location: userLatLng}
+        query = {input: input, location: userLatLng, radius: 500}
       }
       async function f(query){
         let promise = new Promise((resolve, reject) => {
