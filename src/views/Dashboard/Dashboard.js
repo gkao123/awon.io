@@ -635,7 +635,7 @@ handleLocationChange(input) {
           </Col>
           </Row>
           <div>
-          <label for="exampleText">Update Location:</label>
+          <label for="exampleText">Update Location: (sorting by closest to furthest)</label>
           <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={this.handleLocationChange}/>
           </div>
           <Row>

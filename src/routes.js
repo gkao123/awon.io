@@ -181,6 +181,14 @@ const User = Loadable({
   loader: () => import('./views/Users/User'),
   loading: Loading,
 });
+const Register = Loadable({
+  loader: () => import('./views/Users/Register'),
+  loading: Loading,
+})
+const Login = Loadable({
+  loader: () => import('./views/Users/Login'),
+  loading: Loading,
+})
 const New_Request = Loadable({
   loader: () => import('./views/New_Request/New_Request'),
   loading: Loading,
@@ -235,6 +243,8 @@ const routes = [
   { path: '/icons/flags', name: 'Flags', component: Flags },
   { path: '/icons/font-awesome', name: 'Font Awesome', component: FontAwesome },
   { path: '/icons/simple-line-icons', name: 'Simple Line Icons', component: SimpleLineIcons },
+  { path: '/register', name: 'Register', component: Register },
+  { path: '/login', name: 'Login', component: Login },
   { path: '/new_request', name: 'New Request', component: New_Request },
   { path: '/feedback', name: 'Feedback', component: Feedback },
   { path: '/test', name: 'Test', component: Test },
