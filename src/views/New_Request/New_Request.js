@@ -38,6 +38,7 @@ export default class New_Request extends React.Component {
     script.onload = function() {
         console.log('loaded');
         document.head.appendChild(script);
+        window.session_token = new window.google.maps.places.AutocompleteSessionToken();
     };
     fetch('http://ip-api.com/json',{
       method: 'get',
@@ -143,10 +144,10 @@ export default class New_Request extends React.Component {
    
   loadOptions = (input) => {
     if (input.length>1){
-      var query = {input: input};
+      var query = {input: input,  session_token: window.session_token};
       if (window.userlat != null && window.userlon !=null){
         var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
-        query = {input: input, location: userLatLng, radius: 500}
+        query = {input: input, location: userLatLng, radius: 500, session_token: window.session_token}
       }
       
       async function f(query){

@@ -510,6 +510,7 @@ class Dashboard extends Component {
     script.onload = function() {
         console.log('loaded');
         document.head.appendChild(script);
+        window.session_token = new window.google.maps.places.AutocompleteSessionToken();
     };
     await this.getUserlocation();
     this.generateUserItems();
@@ -584,11 +585,11 @@ handleLocationChange(input) {
     };
   }
   loadOptions = (input) => {
-    if (input.length>1){
-      var query = {input: input};
+    if (input.length>2){
+      var query = {input: input, session_token: window.session_token};
       if (window.userlat != null && window.userlon !=null){
         var userLatLng = new window.google.maps.LatLng(window.userlat, window.userlon);
-        query = {input: input, location: userLatLng, radius: 500}
+        query = {input: input, location: userLatLng, radius: 500, session_token: window.session_token}
       }
       async function f(query){
         let promise = new Promise((resolve, reject) => {
