@@ -457,9 +457,10 @@ const mainChartOpts = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    
     this.api_URL = 'http://api.awon.io/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
+    this.latitude = 0,
+    this.longitude = 0,
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
@@ -467,14 +468,13 @@ class Dashboard extends Component {
       isLoaded: false,
       userItems: [],
       location: 'Current Location',
-      latitude: 0,
-      longitude: 0,
       items: null
     };
     this.handleLocationChange = this.handleLocationChange.bind(this);
   }
-  getUserlocation(){
-    fetch('http://ip-api.com/json',{
+  async getUserlocation(){
+    console.log('location')
+    return fetch('http://api.ipstack.com/check?access_key=b5bb48592e64880f90711adfe8ee94db',{
       method: 'get',
       dataType: 'json',
       headers: {
@@ -485,12 +485,13 @@ class Dashboard extends Component {
       .then(
         (res) => {
           console.log('res ', res)
-          this.setState({latitude: res.lat, longitude: res.lon})
-          console.log('res.lat ', res.lat)
-          console.log('res.lon ', res.lon)
-          this.location = 'Current Location'
-          window.userlat = res.lat,
-          window.userlon = res.lon
+          this.latitude = res.lat
+          this.longitude = res.lon
+          console.log('res.lat ', res.latitude)
+          console.log('res.lon ', res.longitude)
+          window.userlat = res.latitude,
+          window.userlon = res.longitude
+          return {lat: res.lat, lon: res.lon}
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -500,7 +501,7 @@ class Dashboard extends Component {
         }
       )
   }
-  componentDidMount() {
+  async componentDidMount() {
     const script = document.createElement("script");
     var srcString = "https://maps.googleapis.com/maps/api/js?key=" + this.googleApiKey + "&libraries=places";
     script.src = srcString;
@@ -510,12 +511,15 @@ class Dashboard extends Component {
         console.log('loaded');
         document.head.appendChild(script);
     };
-    this.getUserlocation();
+    await this.getUserlocation();
     this.generateUserItems();
   }
 generateUserItems(){
   console.log('generate')
-  var updatedapi_URL = this.api_URL + "lat=" + this.state.latitude + "/long=" + this.state.longitude
+  var updatedapi_URL = this.api_URL + "lat=" + this.latitude + "/long=" + this.longitude
+  if (window.userlat != null && window.userlon != null){
+    updatedapi_URL = this.api_URL + "lat=" + window.userlat + "/long=" + window.userlon
+  }
   fetch(updatedapi_URL,{
     method: 'get',
     dataType: 'json',
