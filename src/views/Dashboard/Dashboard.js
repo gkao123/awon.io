@@ -466,7 +466,7 @@ class Dashboard extends Component {
       error: null,
       isLoaded: false,
       userItems: [],
-      location: 'Brandeis University',
+      location: 'Current Location',
       latitude: 42.3663,
       longitude: 71.2592,
       items: null
@@ -515,13 +515,13 @@ class Dashboard extends Component {
       method: 'get',
       dataType: 'json',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
       }
     })
       .then(res => {return res.json();})
       .then(
         (res) => {
+          console.log('res ', res)
           this.latitude = res.lat,
           this.longitude = res.lon,
           this.location = 'Current Location'
@@ -626,80 +626,6 @@ handleLocationChange(input) {
           </div>
           <Row>
             <Item_List userItems={this.state.userItems}/>
-            <Col xs="12" sm="6" lg="12">
-              <Card className="text-white bg-info" >
-                <CardBody className="pb-0">
-                  <a href="" style={{color:"#ffffff"}}>
-                  <div className="sell_value">$1000</div>
-                  <div className="item_description">Need Macbook Pro 15 2017/2016</div>
-                  <div className="location_description">Foster Mods, Brandeis University</div>
-                  <div className="location_description">17 Jun 2018</div>
-                  <div className="invisible">""</div>
-                  </a>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" sm="6" lg="12">
-              <Card className="text-white bg-info" >
-                <CardBody className="pb-0">
-                  <a href="" style={{color:"#ffffff"}}>
-                  <div className="sell_value">$119</div>
-                  <div className="item_description">Help me move my stuff out of my room!</div>
-                  <div className="location_description">Charles River Apartments, Brandeis University</div>
-                  <div className="location_description">28 July 2018</div>
-                  <div className="invisible">""</div>
-                  </a>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" sm="6" lg="12">
-              <Card className="text-white bg-info">
-                <CardBody className="pb-0">
-
-                  <a href="" style={{color:"#ffffff"}}>
-                  <div className="sell_value">$560</div>
-                  <div className="item_description">Subletter for one month (July) at 244 Cresecent Street</div>
-                  <div className="location_description">244 Crescent Street, Waltham MA</div>
-                  <div className="location_description">13 May 2018</div>
-                  <div className="invisible">""</div>
-                </a>
-                </CardBody>
-                {/* <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                  <Line data={cardChartData1} options={cardChartOpts1} height={70} />
-                </div> */}
-              </Card>
-            </Col>
-
-            <Col xs="12" sm="6" lg="12">
-              <Card className="text-white bg-info">
-                <CardBody className="pb-0">
-                  <a href="" style={{color:"#ffffff"}}>
-                  <div className="sell_value">$110</div>
-                  <div className="item_description">Looking to buy Introduction to Alogrithms 3rd Edition</div>
-                  <div className="location_description">Usen Hall, Brandeis University</div>
-                  <div className="location_description">5 May 2018</div>
-                  <div className="invisible">""</div>
-                </a>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" sm="6" lg="12">
-              <Card className="text-white bg-info">
-                <CardBody className="pb-0">
-                  <a href="" style={{color:"#ffffff"}}>
-                  <div className="sell_value">$16</div>
-                  <div className="item_description">3 Chobani yogurts (strawberry) from Hannafords</div>
-                  <div className="location_description">Hassenfield Hall, Brandeis University</div>
-                  <div className="location_description">10 July 2018</div>
-                  <div className="invisible">""</div>
-                </a>
-
-                </CardBody>
-              </Card>
-            </Col>
           </Row>
         </div>
       );
