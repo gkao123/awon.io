@@ -32,7 +32,7 @@ export default class ContactInfoModal extends React.Component {
     }
     return (
         <div>
-          <button class = "btn" onClick={this.toggle}>Help the person?</button>
+          <button class = "btn" onClick={this.toggle}>Get Contact Info?</button>
           <Modal isOpen={this.state.modal}>
             <ModalBody>
                 Contact Info = {this.props.contactInfo}

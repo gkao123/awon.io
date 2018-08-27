@@ -457,7 +457,7 @@ const mainChartOpts = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.api_URL = 'http://api.awon.io/api/user_item_records/size=5/';
+    this.api_URL = 'http://localhost:3000/api/user_item_records/size=5/';
     this.googleApiKey = 'AIzaSyDuE1ktE0lHYeEAH8bUeOCi10j6qXKR6j8';
     this.latitude = 0,
     this.longitude = 0,
@@ -467,6 +467,8 @@ class Dashboard extends Component {
       error: null,
       isLoaded: false,
       userItems: [],
+      user_type: '',
+      user_role: '',
       location: 'Current Location',
       items: null
     };
@@ -517,10 +519,24 @@ class Dashboard extends Component {
   }
 generateUserItems(){
   console.log('generate')
+  console.log('type = ', this.state.user_type)
   var updatedapi_URL = this.api_URL + "lat=" + this.latitude + "/long=" + this.longitude
   if (window.userlat != null && window.userlon != null){
     updatedapi_URL = this.api_URL + "lat=" + window.userlat + "/long=" + window.userlon
   }
+  if (this.state.user_type != "1" && this.state.user_type != "2" && this.state.user_type != "3"){
+    console.log('1');
+    updatedapi_URL = updatedapi_URL + "/type=0"
+  } else{
+    console.log('2')
+    updatedapi_URL = updatedapi_URL + "/type=" + this.state.user_type;
+  }
+  if (this.state.user_role != "1" && this.state.user_role != "2" && this.state.user_role != "3"){
+    updatedapi_URL = updatedapi_URL + "/role=0"
+  } else{
+    updatedapi_URL = updatedapi_URL + "/role=" + this.state.user_role;
+  }
+  console.log('api ', updatedapi_URL)
   fetch(updatedapi_URL,{
     method: 'get',
     dataType: 'json',
@@ -547,6 +563,14 @@ generateUserItems(){
         });
       }
     )
+}
+handleTypeChange(event){
+  console.log('type change')
+  if (event.target.value)
+  this.setState({user_type: event.target.value}, this.generateUserItems);
+}
+handleRoleChange(event){
+  this.setState({user_role: event.target.value}, this.generateUserItems);
 }
 handleLocationChange(input) {
     if (input == null){
@@ -631,16 +655,39 @@ handleLocationChange(input) {
         <div className="animated fadeIn">
         <Row>
           <Col>
-          Location: {this.state.location} 
+            <strong> Location: {this.state.location} </strong>
           </Col>
-          </Row>
+        </Row>
           <div>
-          <label for="exampleText">Update Location: (sorting by closest to furthest)</label>
-          <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={this.handleLocationChange}/>
+            <label for="exampleText">Update Location: (sorting by closest to furthest)</label>
+            <AsyncSelect cacheOptions loadOptions={this.loadOptions} isClearable={true} onChange={this.handleLocationChange} placeholder = "Update Location"/>
           </div>
-          <Row>
-            <Item_List userItems={this.state.userItems}/>
-          </Row>
+          <div class ="form-row">
+              <div class = "form-group col-md-6">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Filter Type</label>
+                
+                <select class="custom-select" id="inputGroupSelect01" value={this.state.user_type} onChange = {e => this.handleTypeChange(e)}>
+                  <option selected>Choose...</option>
+                  <option value="1">Goods</option><option value="2">Services</option><option value="3">Other</option>
+                </select>
+                </div>
+              </div>
+              <div class = "form-group col-md-6">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Filter Role</label>
+                <select class="custom-select" id="inputGroupSelect01" value={this.state.user_role} onChange = {e => this.handleRoleChange(e)}>
+                  <option selected>Choose...</option>
+                  <option value="1">Buying</option>
+                  <option value="2">Selling</option>
+                  <option value="3">Other</option>
+                </select>
+                </div>
+              </div>
+            </div>
+        <Row>
+          <Item_List userItems={this.state.userItems}/>
+        </Row>
         </div>
       );
     }

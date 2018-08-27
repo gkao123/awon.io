@@ -22,7 +22,8 @@ export default class New_Request extends React.Component {
       userlng: null,
       latitude: null,
       longitude: null,
-      isGeocoding: false,
+      post_type: '',
+      post_role: '',
       description: '',
       contactInfo: ''
     }
@@ -106,6 +107,12 @@ export default class New_Request extends React.Component {
       }
     };
   }
+  handleTypeChange(event){
+    this.setState({post_type: event.target.value});
+  }
+  handleRoleChange(event){
+    this.setState({post_role: event.target.value});
+  }
   handleDescriptionChange(event){
     this.setState({description: event.target.value});
   }
@@ -132,6 +139,8 @@ export default class New_Request extends React.Component {
         latitude: this.state.latitude,
         longitude: this.state.longitude,
         price: this.state.price,
+        post_type: this.state.post_type,
+        post_role: this.state.post_role,
         body: this.state.description,
         contactInfo: this.state.contactInfo
       })
@@ -189,13 +198,13 @@ export default class New_Request extends React.Component {
      <div className="animated fadeIn">
         <div className="card">
           <div className="card-header">
-              <i className="icon-pencil"></i> New Request
+              <i className="icon-pencil"></i> New Post
           </div>
           <div class="card-body">
             <Form onSubmit = {e => this.handleSubmit(e)}>
             <FormGroup>
                 <Label for="title">Title</Label>
-                <Input type="text" value= {this.state.title} onChange = {e => this.handleTitleChange(e)} />
+                <Input type="text" value= {this.state.title} onChange = {e => this.handleTitleChange(e)} required/>
             </FormGroup>
             <div class ="form-row">
               <div class = "form-group col-md-9">
@@ -208,14 +217,40 @@ export default class New_Request extends React.Component {
                 <FormGroup>
                   <Label for="exampleText">Price</Label>
                   <div class = "input-group-prepend">
-                    <span class="input-group-text">$</span> <Input type="number" step='0.01' value={this.state.Price} onChange = {e => this.handlePriceChange(e)} placeholder = '0.00'/>
+                    <span class="input-group-text">$</span> <Input type="number" step='0.01' value={this.state.Price} onChange = {e => this.handlePriceChange(e)} placeholder = '0.00' required/>
                   </div>
                 </FormGroup>
               </div>
             </div>
+            <div class ="form-row">
+              <div class = "form-group col-md-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Type</label>
+                
+                <select class="custom-select" id="inputGroupSelect01" value={this.state.post_type} onChange = {e => this.handleTypeChange(e)}>
+                  <option selected>Choose...</option><option value="1">Goods</option><option value="2">Services</option><option value="3">Other</option>
+                </select>
+                </div>
+              </div>
+              <div class = "form-group col-md-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Role</label>
+                <select class="custom-select" id="inputGroupSelect01" value={this.state.post_role} onChange = {e => this.handleRoleChange(e)}>
+                  <option selected>Choose...</option><option value="1">Buyer</option><option value="2">Seller</option><option value="3">Other</option>
+                </select>
+                </div>
+              </div>
+              <div class = "form-group col-md-6">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Allow Contact Info</label>
+                <select class="custom-select" id="inputGroupSelect01"><option selected>Choose...</option><option value="1">Everyone</option><option value="2">Brandeis</option>
+                </select>
+                </div>
+              </div>
+            </div>
             <FormGroup>
               <Label for="exampleText">Description</Label>
-              <Input type="textarea" value={this.state.description} onChange = {e => this.handleDescriptionChange(e)} placeholder = "List any additional details you think would be helpful for any fulfillers." style={{height: '150px'}}/>
+              <Input type="textarea" value={this.state.description} onChange = {e => this.handleDescriptionChange(e)} placeholder = "List any additional details you think could be helpful." style={{height: '150px'}}/>
             </FormGroup>
             <FormGroup>
               <Label for="contactInfo">Contact Info (optional)</Label>

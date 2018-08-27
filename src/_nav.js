@@ -226,7 +226,7 @@ export default {
       icon: 'icon-home',
     },
     {
-      name: 'New Request',
+      name: 'New Post',
       url: '/new_request',
       icon: 'icon-pencil',
     },
