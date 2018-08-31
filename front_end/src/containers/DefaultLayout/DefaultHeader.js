@@ -25,7 +25,7 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: awon, width: 89, height: 25, alt: 'CoreUI Logo', backgroundColor: '#ff0000' }}
+          full={{ src: '../../assets/img/brand/awon_logo.svg', width: 89, height: 25, alt: 'CoreUI Logo', backgroundColor: '#ff0000' }}
           // minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
           //background-color = {{color: "#0e47fb"}}
         />
