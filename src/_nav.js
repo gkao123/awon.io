@@ -226,7 +226,7 @@ export default {
       icon: 'icon-home',
     },
     {
-      name: 'New Request',
+      name: 'New Post',
       url: '/new_request',
       icon: 'icon-pencil',
     },
@@ -236,33 +236,23 @@ export default {
       url: '/feedback',
       icon: 'icon-like',
     },
-    // {
-    //   name: 'User',
-    //   url: '/pages',
-    //   icon: 'icon-user',
-    //   children: [
-    //     {
-    //       name: 'Login',
-    //       url: '/login',
-    //       icon: 'icon-star',
-    //     },
-    //     {
-    //       name: 'Register',
-    //       url: '/register',
-    //       icon: 'icon-star',
-    //     },
-    //     {
-    //       name: 'Error 404',
-    //       url: '/404',
-    //       icon: 'icon-star',
-    //     },
-    //     {
-    //       name: 'Error 500',
-    //       url: '/500',
-    //       icon: 'icon-star',
-    //     },
-    //   ],
-    // },
+    {
+      name: 'User',
+      url: '/pages',
+      icon: 'icon-user',
+      children: [
+        {
+          name: 'Login',
+          url: '/login',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Register',
+          url: '/register',
+          icon: 'icon-star',
+        },
+      ],
+    },
     //     {
     //   name: 'Icons',
     //   url: '/icons',
