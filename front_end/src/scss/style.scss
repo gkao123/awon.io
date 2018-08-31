@@ -2825,21 +2825,20 @@ input[type="button"].btn-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0.5rem 1rem; }
   .navbar > .container,
   .navbar > .container-fluid {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-start; }
+    justify-content: space-between; }
 
 .navbar-brand {
   display: inline-block;
   padding-top: 0.33594rem;
   padding-bottom: 0.33594rem;
-  margin-left: -1rem;
-  //margin-right: 1rem;
+  margin-right: 1rem;
   font-size: 1.09375rem;
   background-color: #ed680a;
   line-height: inherit;
@@ -7788,17 +7787,17 @@ canvas {
 .main .container-fluid {
   padding: 0 30px; }
 
-//applies to max size
-.app-header{
-  position: fixed;
+.app-header {
+  position: center;
   flex-direction: row;
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #ff0000;
+  background-color: #1f2e55;
+  bottom-border: 1px solid #ff0000
  }
   .app-header .navbar-brand {
-    display: inline-flex;
+    //display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 155px;
@@ -9346,12 +9345,10 @@ html[dir="rtl"] .aside-menu-show .aside-menu {
       color: #fff; }
     .app-header .navbar-brand {
       position: center;
-      justify-content: center;
-      //left: 10%;
-      //margin-left: 77.5px;
-    }
+      left: 50%;
+      margin-left: 77.5px; }
   .app-body {
-    margin-top: 0px; }
+    margin-top: 55px; }
   .sidebar {
     position: fixed;
     z-index: 1019;
@@ -9938,19 +9935,17 @@ body {
 html body .app.flex-row.align-items-center {
   height: 100vh; }
 
-//applies to minimized
 .app-header {
   position: relative;
   flex-direction: row;
-  display: center;
   height: 55px;
   padding: 0;
   margin: 0;
-  background-color: #1f2e55;
-}
+  background-color: #0e47fb !important;
+  border-bottom: 0px solid #c8ced3; }
 
-.app-header .navbar-brand{
-  display: flex;
+.app-header .navbar-brand {
+  display: center;
   align-items: center;
   justify-content: center;
   width: 155px;

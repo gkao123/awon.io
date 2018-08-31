@@ -236,6 +236,7 @@ export default {
       url: '/feedback',
       icon: 'icon-like',
     },
+<<<<<<< current
     // {
     //   name: 'User',
     //   url: '/pages',
@@ -263,6 +264,35 @@ export default {
     //     },
     //   ],
     // },
+=======
+    {
+      name: 'User',
+      url: '/pages',
+      icon: 'icon-user',
+      children: [
+        {
+          name: 'Login',
+          url: '/login',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Register',
+          url: '/register',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Error 404',
+          url: '/404',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Anthonys changes are working',
+          url: '/500',
+          icon: 'icon-star',
+        },
+      ],
+    },
+>>>>>>> before discard
     //     {
     //   name: 'Icons',
     //   url: '/icons',
